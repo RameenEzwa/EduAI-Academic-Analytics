@@ -36,227 +36,551 @@ st.set_page_config(
 )
 
 # ─────────────────────────────────────────────────────────────
-# GLOBAL THEME  — Deep Navy & Emerald/Teal
+# GLOBAL THEME  — Futuristic Dark AI Platform
 # ─────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
-/* ── Palette variables ────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ── Palette ──────────────────────────────────────────────── */
 :root {
-    --navy:        #1E3A8A;
-    --navy-light:  #2D4FA6;
-    --navy-dark:   #162D6E;
+    --bg:          #0D1117;
+    --bg2:         #161B27;
+    --bg3:         #1C2333;
+    --card:        rgba(22,27,39,0.85);
+    --card-border: rgba(59,130,246,0.15);
+    --blue:        #3B82F6;
+    --blue-dim:    #2563EB;
+    --blue-glow:   rgba(59,130,246,0.25);
     --teal:        #10B981;
-    --teal-light:  #34D399;
-    --teal-dark:   #059669;
-    --bg:          #F8FAFC;
-    --card-bg:     #FFFFFF;
-    --border:      #E2E8F0;
+    --teal-dim:    #059669;
+    --teal-glow:   rgba(16,185,129,0.25);
+    --purple:      #8B5CF6;
+    --amber:       #F59E0B;
+    --red:         #EF4444;
+    --text:        #F1F5F9;
+    --text2:       #CBD5E1;
     --text-muted:  #64748B;
+    --border:      rgba(148,163,184,0.1);
+    --navy:        #1E3A8A;
 }
 
-/* ── App background ───────────────────────────────────────── */
-.stApp {
-    background-color: var(--bg);
+/* ── Animations ───────────────────────────────────────────── */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0);    }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+@keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+}
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 15px var(--blue-glow); }
+    50%       { box-shadow: 0 0 30px rgba(59,130,246,0.45); }
+}
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-6px); }
+}
+@keyframes orb-move {
+    0%   { transform: translate(0,0) scale(1); }
+    33%  { transform: translate(30px,-20px) scale(1.05); }
+    66%  { transform: translate(-20px,15px) scale(0.97); }
+    100% { transform: translate(0,0) scale(1); }
+}
+
+/* ── Global body / app ────────────────────────────────────── */
+html, body, .stApp {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    background: var(--bg) !important;
+    color: var(--text) !important;
+}
+.main .block-container {
+    background: transparent !important;
+    padding-top: 1.5rem !important;
+    animation: fadeIn 0.5s ease;
 }
 
 /* ── Sidebar ──────────────────────────────────────────────── */
 [data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #1E3A8A 0%, #162D6E 100%) !important;
+    background: linear-gradient(180deg, #0D1117 0%, #161B27 60%, #0D1117 100%) !important;
+    border-right: 1px solid var(--card-border) !important;
+}
+[data-testid="stSidebar"] > div:first-child {
+    padding-top: 1.5rem;
 }
 [data-testid="stSidebar"] * {
-    color: #E2E8F0 !important;
+    color: var(--text2) !important;
+}
+[data-testid="stSidebar"] h1,[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3,[data-testid="stSidebar"] strong {
+    color: var(--text) !important;
 }
 [data-testid="stSidebar"] hr {
-    border-color: rgba(255,255,255,0.15) !important;
+    border-color: var(--border) !important;
 }
 [data-testid="stSidebar"] .stButton > button {
-    background: rgba(255,255,255,0.1) !important;
-    color: #FFFFFF !important;
-    border: 1px solid rgba(255,255,255,0.25) !important;
-    border-radius: 8px !important;
+    background: rgba(59,130,246,0.1) !important;
+    color: var(--blue) !important;
+    border: 1px solid rgba(59,130,246,0.3) !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
 }
 [data-testid="stSidebar"] .stButton > button:hover {
-    background: rgba(255,255,255,0.2) !important;
+    background: rgba(59,130,246,0.2) !important;
+    box-shadow: 0 0 12px var(--blue-glow) !important;
+}
+[data-testid="stSidebar"] [data-testid="stExpander"] {
+    background: rgba(255,255,255,0.03) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 10px !important;
 }
 
 /* ── Primary buttons ──────────────────────────────────────── */
 .stButton > button[kind="primary"] {
-    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%) !important;
-    color: #FFFFFF !important;
+    background: linear-gradient(135deg, var(--blue-dim) 0%, var(--blue) 100%) !important;
+    color: #fff !important;
     border: none !important;
-    border-radius: 8px !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.3px !important;
-    padding: 0.55rem 1.2rem !important;
-    transition: opacity 0.2s ease !important;
+    border-radius: 10px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.4px !important;
+    padding: 0.6rem 1.4rem !important;
+    transition: all 0.25s ease !important;
+    box-shadow: 0 4px 15px rgba(59,130,246,0.3) !important;
 }
 .stButton > button[kind="primary"]:hover {
-    opacity: 0.88 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(59,130,246,0.45) !important;
 }
 
 /* ── Secondary buttons ────────────────────────────────────── */
-.stButton > button[kind="secondary"] {
-    border: 1.5px solid var(--navy) !important;
-    color: var(--navy) !important;
-    border-radius: 8px !important;
-    background: transparent !important;
+.stButton > button[kind="secondary"],
+.stButton > button:not([kind="primary"]) {
+    background: rgba(59,130,246,0.07) !important;
+    border: 1px solid rgba(59,130,246,0.25) !important;
+    color: var(--blue) !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
 }
-.stButton > button[kind="secondary"]:hover {
-    background: rgba(30,58,138,0.06) !important;
+.stButton > button[kind="secondary"]:hover,
+.stButton > button:not([kind="primary"]):hover {
+    background: rgba(59,130,246,0.14) !important;
+    border-color: var(--blue) !important;
+}
+
+/* ── Download button ──────────────────────────────────────── */
+.stDownloadButton > button {
+    background: rgba(16,185,129,0.1) !important;
+    border: 1px solid rgba(16,185,129,0.3) !important;
+    color: var(--teal) !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+}
+.stDownloadButton > button:hover {
+    background: rgba(16,185,129,0.2) !important;
+    box-shadow: 0 0 12px var(--teal-glow) !important;
 }
 
 /* ── Input fields ─────────────────────────────────────────── */
-.stTextInput > div > div > input {
-    border: 1.5px solid var(--border) !important;
-    border-radius: 8px !important;
-    background: var(--card-bg) !important;
-    padding: 0.5rem 0.75rem !important;
-    transition: border-color 0.2s ease;
+.stTextInput > div > div > input,
+.stTextArea textarea {
+    background: var(--bg2) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 10px !important;
+    color: var(--text) !important;
+    padding: 0.6rem 0.9rem !important;
+    transition: all 0.2s ease !important;
 }
-.stTextInput > div > div > input:focus {
-    border-color: var(--navy) !important;
-    box-shadow: 0 0 0 3px rgba(30,58,138,0.12) !important;
+.stTextInput > div > div > input:focus,
+.stTextArea textarea:focus {
+    border-color: var(--blue) !important;
+    box-shadow: 0 0 0 3px var(--blue-glow) !important;
+    background: var(--bg3) !important;
+}
+input[type="text"]::placeholder, textarea::placeholder {
+    color: var(--text-muted) !important;
+}
+
+/* ── Selectbox ────────────────────────────────────────────── */
+.stSelectbox > div > div {
+    background: var(--bg2) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 10px !important;
+    color: var(--text) !important;
+}
+.stSelectbox > div > div:focus-within {
+    border-color: var(--blue) !important;
+}
+
+/* ── Sliders ──────────────────────────────────────────────── */
+[data-testid="stSlider"] [role="slider"] {
+    background: var(--blue) !important;
+    box-shadow: 0 0 8px var(--blue-glow) !important;
+}
+[data-testid="stSlider"] > div > div > div > div {
+    background: linear-gradient(90deg, var(--blue), var(--teal)) !important;
+}
+
+/* ── Radio buttons ────────────────────────────────────────── */
+[data-testid="stRadio"] label {
+    color: var(--text2) !important;
 }
 
 /* ── Metric cards ─────────────────────────────────────────── */
 [data-testid="stMetric"] {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 0.9rem 1rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    background: var(--card) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 14px !important;
+    padding: 1.1rem 1.2rem !important;
+    backdrop-filter: blur(10px) !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05) !important;
+    animation: fadeInUp 0.4s ease both !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+[data-testid="stMetric"]:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 20px var(--blue-glow) !important;
 }
 [data-testid="stMetricLabel"] {
     color: var(--text-muted) !important;
-    font-size: 0.78rem !important;
+    font-size: 0.72rem !important;
     font-weight: 600 !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
+    letter-spacing: 0.8px !important;
 }
 [data-testid="stMetricValue"] {
-    color: var(--navy) !important;
-    font-weight: 700 !important;
+    color: var(--text) !important;
+    font-weight: 800 !important;
+    font-size: 1.5rem !important;
 }
+[data-testid="stMetricDelta"] { color: var(--teal) !important; }
 [data-testid="stMetricDelta"] svg { display: none; }
 
 /* ── Bordered containers ──────────────────────────────────── */
 [data-testid="stVerticalBlockBorderWrapper"] > div {
-    border: 1px solid var(--border) !important;
-    border-radius: 12px !important;
-    background: var(--card-bg) !important;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 16px !important;
+    background: var(--card) !important;
+    backdrop-filter: blur(12px) !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04) !important;
+    padding: 1.25rem 1.25rem 1rem !important;
+    animation: fadeInUp 0.4s ease both;
 }
 
-/* ── Tab styling ──────────────────────────────────────────── */
+/* ── Tabs ─────────────────────────────────────────────────── */
 .stTabs [data-baseweb="tab-list"] {
-    gap: 4px;
-    background: var(--bg);
-    border-bottom: 2px solid var(--border);
+    gap: 6px !important;
+    background: transparent !important;
+    border-bottom: 1px solid var(--border) !important;
 }
 .stTabs [data-baseweb="tab"] {
-    border-radius: 8px 8px 0 0 !important;
+    background: transparent !important;
+    border-radius: 10px 10px 0 0 !important;
     color: var(--text-muted) !important;
     font-weight: 500 !important;
-    padding: 0.5rem 1.1rem !important;
+    padding: 0.55rem 1.2rem !important;
+    transition: all 0.2s ease !important;
+    border: none !important;
+}
+.stTabs [data-baseweb="tab"]:hover {
+    color: var(--blue) !important;
+    background: rgba(59,130,246,0.07) !important;
 }
 .stTabs [aria-selected="true"] {
-    background: var(--card-bg) !important;
-    color: var(--navy) !important;
+    background: rgba(59,130,246,0.12) !important;
+    color: var(--blue) !important;
     font-weight: 700 !important;
-    border-bottom: 2px solid var(--navy) !important;
+    border-bottom: 2px solid var(--blue) !important;
+}
+[data-testid="stTabsContent"] {
+    background: transparent !important;
+}
+
+/* ── Expander ─────────────────────────────────────────────── */
+[data-testid="stExpander"] {
+    background: var(--card) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 12px !important;
+    backdrop-filter: blur(10px) !important;
+}
+[data-testid="stExpander"] summary {
+    color: var(--text2) !important;
+    font-weight: 600 !important;
+}
+
+/* ── Dataframe ────────────────────────────────────────────── */
+[data-testid="stDataFrame"] {
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    border: 1px solid var(--card-border) !important;
+}
+.dvn-scroller { background: var(--bg2) !important; }
+
+/* ── Alerts ───────────────────────────────────────────────── */
+[data-testid="stAlert"] {
+    border-radius: 12px !important;
+    border-left-width: 4px !important;
+    background: rgba(22,27,39,0.8) !important;
+    backdrop-filter: blur(8px) !important;
+    animation: fadeInUp 0.35s ease !important;
 }
 
 /* ── Dividers ─────────────────────────────────────────────── */
 hr { border-color: var(--border) !important; }
 
 /* ── Headings ─────────────────────────────────────────────── */
-h1, h2, h3 { color: var(--navy) !important; }
+h1 { font-size: 1.9rem !important; font-weight: 800 !important; color: var(--text) !important; }
+h2 { font-size: 1.45rem !important; font-weight: 700 !important; color: var(--text) !important; }
+h3 { font-size: 1.15rem !important; font-weight: 700 !important; color: var(--text2) !important; }
+p, li, label { color: var(--text2) !important; }
+.stMarkdown { color: var(--text2) !important; }
 
-/* ── Expander ─────────────────────────────────────────────── */
-[data-testid="stExpander"] {
+/* ── Code ─────────────────────────────────────────────────── */
+code {
+    background: rgba(59,130,246,0.12) !important;
+    color: var(--blue) !important;
+    border-radius: 5px !important;
+    padding: 1px 6px !important;
+    font-size: 0.85rem !important;
+    border: 1px solid rgba(59,130,246,0.2) !important;
+}
+
+/* ── Chat messages ────────────────────────────────────────── */
+[data-testid="stChatMessage"] {
+    background: var(--bg2) !important;
     border: 1px solid var(--border) !important;
-    border-radius: 10px !important;
-    background: var(--card-bg) !important;
+    border-radius: 12px !important;
+    margin-bottom: 0.5rem !important;
 }
 
-/* ── Success / info / warning alerts ─────────────────────── */
-[data-testid="stAlert"][data-baseweb="notification"] {
-    border-radius: 10px !important;
+/* ── Spinner ──────────────────────────────────────────────── */
+[data-testid="stSpinner"] > div {
+    border-top-color: var(--blue) !important;
 }
 
-/* ── Login card helper class ──────────────────────────────── */
-.login-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 16px;
+/* ══════════════════════════════════════════════════════════
+   CUSTOM COMPONENT CLASSES
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Login hero banner ────────────────────────────────────── */
+.login-hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0D1117 0%, #0F1629 50%, #0A1628 100%);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
     padding: 2.5rem 2rem 2rem;
-    box-shadow: 0 8px 32px rgba(30,58,138,0.10), 0 1.5px 4px rgba(0,0,0,0.06);
-    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    animation: fadeInUp 0.6s ease;
+}
+.login-hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(59,130,246,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: orb-move 8s ease-in-out infinite;
+}
+.login-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; right: -40px;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: orb-move 10s ease-in-out infinite reverse;
 }
 .login-logo {
-    font-size: 3rem;
-    text-align: center;
-    margin-bottom: 0.5rem;
+    font-size: 3.5rem;
+    display: block;
+    animation: float 3s ease-in-out infinite;
+    margin-bottom: 0.75rem;
 }
 .login-title {
-    font-size: 1.65rem;
+    font-size: 1.85rem;
     font-weight: 800;
-    color: var(--navy) !important;
-    text-align: center;
-    margin-bottom: 0.25rem;
+    background: linear-gradient(135deg, #60A5FA, #34D399, #818CF8);
+    background-size: 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
+    margin-bottom: 0.3rem;
+    line-height: 1.2;
 }
 .login-sub {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    text-align: center;
-    margin-bottom: 1.5rem;
+    font-size: 0.88rem;
+    color: var(--text-muted) !important;
+    letter-spacing: 0.5px;
 }
+.login-pill {
+    display: inline-block;
+    background: rgba(59,130,246,0.12);
+    border: 1px solid rgba(59,130,246,0.25);
+    color: var(--blue) !important;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    margin: 0.5rem 4px 0;
+}
+
+/* ── Credential rows ──────────────────────────────────────── */
 .cred-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.55rem 0.75rem;
-    border-radius: 8px;
-    margin-bottom: 0.4rem;
-    font-size: 0.9rem;
+    padding: 0.6rem 0.9rem;
+    border-radius: 10px;
+    margin-bottom: 0.45rem;
+    font-size: 0.88rem;
+    transition: transform 0.15s ease;
 }
-.cred-admin   { background: rgba(30,58,138,0.07);  border-left: 3px solid #1E3A8A; }
-.cred-teacher { background: rgba(16,185,129,0.08); border-left: 3px solid #10B981; }
-.cred-student { background: rgba(59,130,246,0.07); border-left: 3px solid #3B82F6; }
+.cred-row:hover { transform: translateX(3px); }
+.cred-admin   { background: rgba(59,130,246,0.08);  border-left: 3px solid var(--blue); }
+.cred-teacher { background: rgba(16,185,129,0.08);  border-left: 3px solid var(--teal); }
+.cred-student { background: rgba(139,92,246,0.08);  border-left: 3px solid var(--purple); }
 .cred-badge {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 700;
-    padding: 2px 8px;
+    padding: 2px 9px;
     border-radius: 20px;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.5px;
 }
-.badge-admin   { background: #1E3A8A; color: #fff; }
-.badge-teacher { background: #10B981; color: #fff; }
-.badge-student { background: #3B82F6; color: #fff; }
-code {
-    background: #EFF6FF !important;
-    color: var(--navy) !important;
-    border-radius: 4px !important;
-    padding: 1px 5px !important;
-    font-size: 0.85rem !important;
-}
+.badge-admin   { background: rgba(59,130,246,0.2);  color: #93C5FD; border: 1px solid rgba(59,130,246,0.3); }
+.badge-teacher { background: rgba(16,185,129,0.2);  color: #6EE7B7; border: 1px solid rgba(16,185,129,0.3); }
+.badge-student { background: rgba(139,92,246,0.2);  color: #C4B5FD; border: 1px solid rgba(139,92,246,0.3); }
 
-/* ── Portal banner helper classes ────────────────────────── */
+/* ── Portal banners ───────────────────────────────────────── */
 .portal-banner {
-    padding: 14px 20px;
-    border-radius: 12px;
-    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+    padding: 18px 24px;
+    border-radius: 16px;
+    margin-bottom: 1.25rem;
     display: flex;
     align-items: center;
-    gap: 12px;
-    font-size: 1rem;
-    font-weight: 600;
+    gap: 14px;
+    font-size: 1.05rem;
+    font-weight: 700;
     color: #fff;
+    animation: fadeInUp 0.4s ease;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
 }
-.banner-student { background: linear-gradient(135deg,#1E3A8A,#2D4FA6); }
-.banner-admin   { background: linear-gradient(135deg,#7F1D1D,#B91C1C); }
-.banner-teacher { background: linear-gradient(135deg,#065F46,#059669); }
-.banner-sub     { font-size:0.82rem; font-weight:400; opacity:0.85; margin-left:auto; }
+.portal-banner::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 200px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05));
+    border-radius: 0 16px 16px 0;
+}
+.banner-student {
+    background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 60%, #3B82F6 100%);
+    border: 1px solid rgba(59,130,246,0.35);
+    box-shadow: 0 4px 24px rgba(59,130,246,0.2);
+}
+.banner-admin {
+    background: linear-gradient(135deg, #7F1D1D 0%, #B91C1C 60%, #EF4444 100%);
+    border: 1px solid rgba(239,68,68,0.35);
+    box-shadow: 0 4px 24px rgba(239,68,68,0.2);
+}
+.banner-teacher {
+    background: linear-gradient(135deg, #064E3B 0%, #059669 60%, #10B981 100%);
+    border: 1px solid rgba(16,185,129,0.35);
+    box-shadow: 0 4px 24px rgba(16,185,129,0.2);
+}
+.banner-sub {
+    font-size: 0.8rem;
+    font-weight: 400;
+    opacity: 0.8;
+    margin-left: auto;
+}
+
+/* ── AI Insight cards ─────────────────────────────────────── */
+.ai-insight {
+    background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(16,185,129,0.06));
+    border: 1px solid rgba(59,130,246,0.2);
+    border-radius: 14px;
+    padding: 1.1rem 1.25rem;
+    margin: 0.75rem 0;
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.5s ease;
+}
+.ai-insight::before {
+    content: '🤖 EduAI Analysis';
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--blue);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+}
+.ai-insight-text {
+    color: var(--text2) !important;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+.rec-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.75rem;
+    border-left: 3px solid var(--blue);
+    animation: fadeInUp 0.4s ease both;
+    transition: transform 0.2s ease;
+}
+.rec-card:hover { transform: translateX(4px); }
+.rec-card.good  { border-left-color: var(--teal); }
+.rec-card.warn  { border-left-color: var(--amber); }
+.rec-card.crit  { border-left-color: var(--red); }
+.rec-title { font-weight: 700; color: var(--text) !important; margin-bottom: 0.3rem; font-size: 0.95rem; }
+.rec-body  { color: var(--text-muted) !important; font-size: 0.88rem; line-height: 1.55; }
+
+/* ── KPI progress bars ────────────────────────────────────── */
+.kpi-bar-wrap {
+    background: rgba(255,255,255,0.05);
+    border-radius: 6px;
+    height: 6px;
+    margin-top: 6px;
+    overflow: hidden;
+}
+.kpi-bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 1s ease;
+}
+
+/* ── SDG / Vision cards ───────────────────────────────────── */
+.sdg-card {
+    background: linear-gradient(135deg, rgba(22,27,39,0.9), rgba(13,17,30,0.9));
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    height: 100%;
+    transition: box-shadow 0.25s ease, transform 0.2s ease;
+    animation: fadeInUp 0.45s ease both;
+}
+.sdg-card:hover {
+    box-shadow: 0 0 24px var(--blue-glow);
+    transform: translateY(-3px);
+}
+.sdg-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+.sdg-title { font-size: 1rem; font-weight: 700; color: var(--text) !important; margin-bottom: 0.4rem; }
+.sdg-body { font-size: 0.85rem; color: var(--text-muted) !important; line-height: 1.55; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -569,15 +893,21 @@ def render_sidebar():
         st.divider()
 
         # Role badge
+        badge_colors = {
+            "student": ("rgba(139,92,246,0.15)", "#C4B5FD", "rgba(139,92,246,0.3)"),
+            "teacher": ("rgba(16,185,129,0.15)",  "#6EE7B7", "rgba(16,185,129,0.3)"),
+            "admin":   ("rgba(239,68,68,0.15)",   "#FCA5A5", "rgba(239,68,68,0.3)"),
+        }
+        bc = badge_colors.get(role, badge_colors["student"])
         st.markdown(
-            f"<div style='background:{color};color:white;padding:8px 12px;"
-            f"border-radius:8px;font-size:0.8rem;font-weight:bold;text-align:center;'>"
+            f"<div style='background:{bc[0]};color:{bc[1]};border:1px solid {bc[2]};padding:9px 14px;"
+            f"border-radius:10px;font-size:0.82rem;font-weight:700;text-align:center;letter-spacing:0.3px;'>"
             f"{info['icon']} {info['badge']}</div>",
             unsafe_allow_html=True,
         )
         st.markdown("<br>", unsafe_allow_html=True)
 
-        st.markdown(f"**👤 User:** {username}")
+        st.markdown(f"**👤 User:** `{username}`")
         st.markdown(f"**🏷️ Role:** {info['label']}")
 
         st.divider()
@@ -624,18 +954,23 @@ def render_login():
     with centre:
         st.markdown("<br>", unsafe_allow_html=True)
 
-        # ── Styled login card ──────────────────────────────────
+        # ── Premium login hero ─────────────────────────────────
         st.markdown("""
-        <div class="login-card">
-            <div class="login-logo">🎓</div>
-            <div class="login-title">AI Student Assistant</div>
-            <div class="login-sub">SDG 4: Quality Education &nbsp;·&nbsp; Vision 2030 / 2035</div>
+        <div class="login-hero">
+            <span class="login-logo">🎓</span>
+            <div class="login-title">EduAI Platform</div>
+            <div class="login-sub">AI-Powered Academic Intelligence System</div>
+            <div style="margin-top:0.75rem;">
+                <span class="login-pill">✦ SDG 4: Quality Education</span>
+                <span class="login-pill">✦ Vision 2030/2035</span>
+                <span class="login-pill">✦ AI Analytics</span>
+            </div>
         </div>
         """, unsafe_allow_html=True)
 
         # Inputs + button inside a clean container
         with st.container(border=True):
-            st.markdown("##### Login to your portal")
+            st.markdown("##### Sign in to your portal")
             st.markdown("&nbsp;")
             username = st.text_input("Username", placeholder="Enter your username",
                                      key="login_username")
@@ -746,51 +1081,85 @@ def render_student(df, lr, rf, feat_cols, df_ml, metrics):
             gauge = go.Figure(go.Indicator(
                 mode="gauge+number+delta",
                 value=score,
-                delta={"reference": 75, "increasing": {"color": "green"}},
+                delta={"reference": 75, "increasing": {"color": "#10B981"},
+                       "decreasing": {"color": "#EF4444"}},
+                number={"font": {"color": "#F1F5F9", "size": 52}},
                 gauge={
-                    "axis": {"range": [0, 100]},
-                    "bar":  {"color": "#0d6efd"},
+                    "axis": {"range": [0, 100],
+                             "tickcolor": "#64748B",
+                             "tickfont": {"color": "#94A3B8"}},
+                    "bar":  {"color": "#3B82F6", "thickness": 0.7},
+                    "bgcolor": "rgba(0,0,0,0)",
+                    "bordercolor": "rgba(148,163,184,0.1)",
                     "steps": [
-                        {"range": [0,  WEAK_THRESHOLD],              "color": "#ffcccc"},
-                        {"range": [WEAK_THRESHOLD, AVG_THRESHOLD],   "color": "#fff3cd"},
-                        {"range": [AVG_THRESHOLD,  100],             "color": "#d4edda"},
+                        {"range": [0,  WEAK_THRESHOLD],            "color": "rgba(239,68,68,0.18)"},
+                        {"range": [WEAK_THRESHOLD, AVG_THRESHOLD], "color": "rgba(245,158,11,0.15)"},
+                        {"range": [AVG_THRESHOLD,  100],           "color": "rgba(16,185,129,0.15)"},
                     ],
-                    "threshold": {"line": {"color": "red", "width": 4},
-                                  "thickness": 0.75, "value": 75},
+                    "threshold": {"line": {"color": "#10B981", "width": 3},
+                                  "thickness": 0.8, "value": 75},
                 },
-                title={"text": "Predicted Exam Score"},
+                title={"text": "EduAI Predicted Score", "font": {"color": "#94A3B8", "size": 14}},
             ))
-            gauge.update_layout(height=280, margin=dict(t=50, b=10, l=20, r=20))
+            gauge.update_layout(
+                height=300,
+                margin=dict(t=60, b=10, l=20, r=20),
+                paper_bgcolor="rgba(0,0,0,0)",
+                plot_bgcolor="rgba(0,0,0,0)",
+                font={"family": "Inter, sans-serif"},
+            )
             st.plotly_chart(gauge, use_container_width=True)
 
-            feedback = {
-                "Strong":  (
-                    f"🏆 **Outstanding!** {name}, your study habits predict a top-tier score of {score:.1f}. "
-                    "Consider taking on leadership roles like peer tutoring — teaching deepens your own mastery."
+            ai_msgs = {
+                "Strong": (
+                    f"EduAI has detected exceptional academic consistency in your profile. "
+                    f"With a predicted score of **{score:.1f}/100**, your study patterns "
+                    f"({hours} hrs/week) and attendance ({attendance}%) place you in the top-performance "
+                    f"tier. EduAI recommends channelling this momentum into peer-teaching and advanced "
+                    f"practice problems to maximise your ceiling score."
                 ),
                 "Average": (
-                    f"📈 **Solid effort, {name}!** A score of {score:.1f} is respectable. "
-                    "Targeted improvements in attendance and active recall practice could push you into the Strong tier."
+                    f"EduAI analysis indicates solid academic engagement with measurable room for growth. "
+                    f"Your predicted score of **{score:.1f}/100** reflects consistent effort, but EduAI "
+                    f"has identified that a 15–20% increase in weekly study hours combined with active "
+                    f"recall techniques could propel your score into the Strong tier within 4–6 weeks."
                 ),
-                "Weak":    (
-                    f"⚠️ **Action needed, {name}.** Predicted score: {score:.1f}. "
-                    "Students who added 5 hrs/week study time and raised attendance to 80%+ moved up a full "
-                    "performance category in one semester. Start small — ask for help early."
+                "Weak": (
+                    f"EduAI has detected declining academic consistency caused by reduced weekly study "
+                    f"hours and below-average attendance patterns. Predicted score: **{score:.1f}/100**. "
+                    f"EduAI recommends increasing structured study sessions by 5+ hours weekly and "
+                    f"targeting 80%+ attendance — historical data shows this combination lifts students "
+                    f"by a full performance category within one semester."
                 ),
             }
-            st.info(feedback[category], icon="🤖")
+            st.markdown(
+                f"<div class='ai-insight'>"
+                f"<div class='ai-insight-text'>{ai_msgs[category]}</div></div>",
+                unsafe_allow_html=True,
+            )
 
             st.divider()
             st.markdown("### 📈 Your Score in Class Context")
             fig = px.histogram(df, x="Exam_Score", nbins=30,
-                               color_discrete_sequence=["#6ea8fe"],
+                               color_discrete_sequence=["#3B82F6"],
                                labels={"Exam_Score": "Exam Score"},
-                               title="Class Score Distribution — Your Prediction Marked")
-            fig.add_vline(x=score, line_color="red", line_width=3,
-                          annotation_text=f"You: {score:.1f}", annotation_position="top right")
-            fig.add_vline(x=df["Exam_Score"].mean(), line_color="orange", line_dash="dash",
-                          annotation_text=f"Class avg: {df['Exam_Score'].mean():.1f}")
-            fig.update_layout(height=320, margin=dict(t=50, b=10))
+                               title="Class Score Distribution — Your EduAI Prediction Marked")
+            fig.add_vline(x=score, line_color="#10B981", line_width=3,
+                          annotation_text=f"You: {score:.1f}", annotation_position="top right",
+                          annotation_font_color="#10B981")
+            fig.add_vline(x=df["Exam_Score"].mean(), line_color="#F59E0B", line_dash="dash",
+                          annotation_text=f"Class avg: {df['Exam_Score'].mean():.1f}",
+                          annotation_font_color="#F59E0B")
+            fig.update_layout(
+                height=340,
+                margin=dict(t=55, b=15),
+                template="plotly_dark",
+                paper_bgcolor="rgba(0,0,0,0)",
+                plot_bgcolor="rgba(13,17,30,0.5)",
+                font={"family": "Inter, sans-serif", "color": "#94A3B8"},
+                title_font_color="#CBD5E1",
+            )
+            fig.update_traces(marker_line_color="rgba(59,130,246,0.3)", marker_line_width=0.5)
             st.plotly_chart(fig, use_container_width=True)
 
     # ── Tab 2: Recommendations ────────────────────────────────
@@ -876,9 +1245,20 @@ def render_student(df, lr, rf, feat_cols, df_ml, metrics):
                               "Make sure to prepare questions before each session to maximise value."))
 
             for title, body in recs:
-                icon = "✅" if title.startswith("✅") else "⚠️" if "Critical" in title or "Needs" in title or "Insufficient" in title else "📌"
-                with st.expander(title, expanded=True):
-                    st.write(body)
+                if title.startswith("✅"):
+                    cls = "rec-card good"
+                elif "Critical" in title or "Insufficient" in title or "Needs" in title:
+                    cls = "rec-card crit"
+                else:
+                    cls = "rec-card warn"
+                body_html = body.replace("\n", "<br>")
+                st.markdown(
+                    f"<div class='{cls}'>"
+                    f"<div class='rec-title'>{title}</div>"
+                    f"<div class='rec-body'>{body_html}</div>"
+                    f"</div>",
+                    unsafe_allow_html=True,
+                )
 
             st.divider()
             st.markdown("#### 🗓️ Suggested Weekly Study Schedule")
@@ -1043,22 +1423,36 @@ def render_admin(df, lr, rf, feat_cols, df_ml, metrics):
         fig_heat = px.imshow(corr, text_auto=".2f", aspect="auto",
                              color_continuous_scale="RdBu_r",
                              title="Feature Correlation Matrix")
-        fig_heat.update_layout(height=500)
+        fig_heat.update_layout(
+            height=500,
+            template="plotly_dark",
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(13,17,30,0.5)",
+            font={"family": "Inter, sans-serif", "color": "#94A3B8"},
+            title_font_color="#CBD5E1",
+        )
         st.plotly_chart(fig_heat, use_container_width=True)
 
         st.markdown("#### Column Distribution Explorer")
         col_sel = st.selectbox("Select column", df.columns)
         if df[col_sel].dtype in [np.float64, np.int64]:
             fig_col = px.histogram(df, x=col_sel, nbins=30,
-                                   color_discrete_sequence=["#dc3545"],
+                                   color_discrete_sequence=["#EF4444"],
                                    title=f"Distribution: {col_sel}")
         else:
             vc = df[col_sel].value_counts().reset_index()
             vc.columns = [col_sel, "Count"]
             fig_col = px.bar(vc, x=col_sel, y="Count",
-                             color_discrete_sequence=["#dc3545"],
+                             color_discrete_sequence=["#EF4444"],
                              title=f"Value Counts: {col_sel}")
-        fig_col.update_layout(height=300)
+        fig_col.update_layout(
+            height=300,
+            template="plotly_dark",
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(13,17,30,0.5)",
+            font={"family": "Inter, sans-serif", "color": "#94A3B8"},
+            title_font_color="#CBD5E1",
+        )
         st.plotly_chart(fig_col, use_container_width=True)
 
     # ── Tab 3: ML Models — Admin Only ─────────────────────────
@@ -1082,11 +1476,20 @@ def render_admin(df, lr, rf, feat_cols, df_ml, metrics):
         top10 = metrics["importances"].head(10).reset_index()
         top10.columns = ["Feature", "Importance"]
         fig_imp = px.bar(top10, x="Importance", y="Feature", orientation="h",
-                         color="Importance", color_continuous_scale="Reds",
-                         title="Random Forest Feature Importances")
-        fig_imp.update_layout(height=380,
-                              yaxis={"categoryorder": "total ascending"},
-                              margin=dict(t=50, b=10))
+                         color="Importance",
+                         color_continuous_scale=[[0, "#1E3A8A"], [0.5, "#3B82F6"], [1, "#10B981"]],
+                         title="EduAI — Random Forest Feature Importances")
+        fig_imp.update_layout(
+            height=400,
+            yaxis={"categoryorder": "total ascending"},
+            margin=dict(t=55, b=10),
+            template="plotly_dark",
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(13,17,30,0.5)",
+            font={"family": "Inter, sans-serif", "color": "#94A3B8"},
+            title_font_color="#CBD5E1",
+        )
+        fig_imp.update_traces(marker_line_width=0)
         st.plotly_chart(fig_imp, use_container_width=True)
 
         st.divider()
@@ -1181,26 +1584,37 @@ def render_teacher(df):
     with tab1:
         col_l, col_r = st.columns(2)
 
+        _dark = dict(
+            template="plotly_dark",
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(13,17,30,0.5)",
+            font={"family": "Inter, sans-serif", "color": "#94A3B8"},
+            title_font_color="#CBD5E1",
+        )
+
         with col_l:
             cat_counts = df["Performance"].value_counts().reset_index()
             cat_counts.columns = ["Category", "Count"]
             fig_donut = px.pie(
                 cat_counts, values="Count", names="Category",
-                hole=0.45, title="Performance Breakdown",
+                hole=0.5, title="Performance Breakdown",
                 color="Category",
-                color_discrete_map={"Strong": "#28a745",
-                                    "Average": "#ffc107",
-                                    "Weak": "#dc3545"},
+                color_discrete_map={"Strong": "#10B981", "Average": "#F59E0B", "Weak": "#EF4444"},
             )
-            fig_donut.update_layout(height=340)
+            fig_donut.update_layout(height=360, **_dark)
+            fig_donut.update_traces(
+                textfont_color="white",
+                marker_line_color="rgba(0,0,0,0.3)",
+                marker_line_width=2,
+            )
             st.plotly_chart(fig_donut, use_container_width=True)
 
         with col_r:
             if "Gender" in df.columns:
                 fig_box = px.box(df, x="Gender", y="Exam_Score", color="Gender",
                                  title="Score Distribution by Gender",
-                                 color_discrete_sequence=px.colors.qualitative.Set2)
-                fig_box.update_layout(height=340, showlegend=False)
+                                 color_discrete_sequence=["#3B82F6", "#A78BFA"])
+                fig_box.update_layout(height=360, showlegend=False, **_dark)
                 st.plotly_chart(fig_box, use_container_width=True)
 
         df2 = df.copy()
@@ -1210,19 +1624,25 @@ def render_teacher(df):
         bucket = df2.groupby("Study_Bucket", observed=True)["Exam_Score"].mean().reset_index()
         bucket.columns = ["Weekly Study Hours", "Average Score"]
         fig_trend = px.line(bucket, x="Weekly Study Hours", y="Average Score",
-                            markers=True, title="Average Score vs Weekly Study Hours",
-                            color_discrete_sequence=["#198754"])
-        fig_trend.update_layout(height=300)
+                            markers=True, title="EduAI Insight: Average Score vs Weekly Study Hours",
+                            color_discrete_sequence=["#10B981"])
+        fig_trend.update_traces(
+            marker=dict(size=8, color="#34D399", line=dict(color="#065F46", width=1.5)),
+            line=dict(width=2.5),
+        )
+        fig_trend.update_layout(height=320, **_dark)
         st.plotly_chart(fig_trend, use_container_width=True)
 
         if "School_Type" in df.columns:
             school_avg = df.groupby("School_Type")["Exam_Score"].mean().reset_index()
             school_avg.columns = ["School Type", "Average Score"]
             fig_sch = px.bar(school_avg, x="School Type", y="Average Score",
-                             color="Average Score", color_continuous_scale="Greens",
+                             color="Average Score",
+                             color_continuous_scale=[[0, "#064E3B"], [0.5, "#059669"], [1, "#34D399"]],
                              text="Average Score", title="Average Score by School Type")
-            fig_sch.update_traces(texttemplate="%{text:.1f}", textposition="outside")
-            fig_sch.update_layout(height=300)
+            fig_sch.update_traces(texttemplate="%{text:.1f}", textposition="outside",
+                                   textfont_color="#CBD5E1", marker_line_width=0)
+            fig_sch.update_layout(height=300, **_dark)
             st.plotly_chart(fig_sch, use_container_width=True)
 
     # ── Tab 2: At-Risk Students ───────────────────────────────
@@ -1240,14 +1660,23 @@ def render_teacher(df):
         w3.metric("Avg Attendance (at-risk)", f"{weak_df['Attendance'].mean():.1f}%",
                   f"Class: {df['Attendance'].mean():.1f}%")
 
+        _dark2 = dict(
+            template="plotly_dark",
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(13,17,30,0.5)",
+            font={"family": "Inter, sans-serif", "color": "#94A3B8"},
+            title_font_color="#CBD5E1",
+        )
+
         fig_sc = px.scatter(
             weak_df, x="Hours_Studied", y="Exam_Score",
-            color="Attendance", size_max=8,
-            title="At-Risk Students — Study Hours vs Score (colour = Attendance %)",
+            color="Attendance", size_max=9,
+            title="EduAI At-Risk Analysis — Study Hours vs Score (colour = Attendance %)",
             labels={"Hours_Studied": "Hours Studied / Week"},
-            color_continuous_scale="RdYlGn",
+            color_continuous_scale=[[0, "#EF4444"], [0.5, "#F59E0B"], [1, "#10B981"]],
         )
-        fig_sc.update_layout(height=380)
+        fig_sc.update_traces(marker=dict(opacity=0.75, line=dict(width=0.5, color="rgba(0,0,0,0.3)")))
+        fig_sc.update_layout(height=400, **_dark2)
         st.plotly_chart(fig_sc, use_container_width=True)
 
         if "Motivation_Level" in df.columns:
@@ -1255,8 +1684,9 @@ def render_teacher(df):
             mot.columns = ["Motivation", "Count"]
             fig_mot = px.bar(mot, x="Motivation", y="Count",
                              title="Motivation Levels — At-Risk Students",
-                             color_discrete_sequence=["#dc3545"])
-            fig_mot.update_layout(height=280)
+                             color_discrete_sequence=["#EF4444"])
+            fig_mot.update_layout(height=280, **_dark2)
+            fig_mot.update_traces(marker_line_width=0)
             st.plotly_chart(fig_mot, use_container_width=True)
 
         show = [c for c in ["Hours_Studied", "Attendance", "Sleep_Hours",
@@ -1336,6 +1766,14 @@ def render_teacher(df):
         st.markdown("#### 🔭 Vision 2035 — AI-Driven Educational Quality Assurance")
 
         v35_1, v35_2 = st.columns(2)
+        _sdg = dict(
+            template="plotly_dark",
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(13,17,30,0.5)",
+            font={"family": "Inter, sans-serif", "color": "#94A3B8"},
+            title_font_color="#CBD5E1",
+        )
+
         with v35_1:
             with st.container(border=True):
                 st.markdown("**🔮 Predictive Educational Analytics**")
@@ -1349,12 +1787,11 @@ def render_teacher(df):
                     df.sample(300, random_state=42),
                     x="Hours_Studied", y="Exam_Score",
                     color="Performance", size_max=6,
-                    title="Predictive Pattern: Study Hours → Score",
-                    color_discrete_map={"Strong": "#28a745",
-                                        "Average": "#ffc107",
-                                        "Weak": "#dc3545"},
+                    title="EduAI Predictive Pattern: Study Hours → Score",
+                    color_discrete_map={"Strong": "#10B981", "Average": "#F59E0B", "Weak": "#EF4444"},
                 )
-                fig_pred.update_layout(height=280, margin=dict(t=40, b=10))
+                fig_pred.update_traces(marker=dict(opacity=0.8, size=6))
+                fig_pred.update_layout(height=290, margin=dict(t=45, b=10), **_sdg)
                 st.plotly_chart(fig_pred, use_container_width=True)
 
         with v35_2:
@@ -1368,10 +1805,12 @@ def render_teacher(df):
                     res = df.groupby("Access_to_Resources")["Exam_Score"].mean().reset_index()
                     res.columns = ["Resource Access", "Avg Score"]
                     fig_res = px.bar(res, x="Resource Access", y="Avg Score",
-                                     color="Avg Score", color_continuous_scale="Greens",
-                                     text="Avg Score", title="Score by Resource Access Level")
-                    fig_res.update_traces(texttemplate="%{text:.1f}", textposition="outside")
-                    fig_res.update_layout(height=280, margin=dict(t=40, b=10))
+                                     color="Avg Score",
+                                     color_continuous_scale=[[0,"#064E3B"],[0.5,"#059669"],[1,"#34D399"]],
+                                     text="Avg Score", title="Equity Analysis: Score by Resource Access")
+                    fig_res.update_traces(texttemplate="%{text:.1f}", textposition="outside",
+                                          textfont_color="#CBD5E1", marker_line_width=0)
+                    fig_res.update_layout(height=290, margin=dict(t=45, b=10), **_sdg)
                     st.plotly_chart(fig_res, use_container_width=True)
 
         # ── Vision KPI Progress Tracker ───────────────────────
@@ -1405,10 +1844,11 @@ def render_teacher(df):
             inet = df.groupby("Internet_Access")["Exam_Score"].mean().reset_index()
             inet.columns = ["Internet Access", "Avg Score"]
             fig_inet = px.bar(inet, x="Internet Access", y="Avg Score",
-                              color_discrete_sequence=["#198754", "#dc3545"],
-                              text="Avg Score", title="Digital Divide: Internet Access vs Score")
-            fig_inet.update_traces(texttemplate="%{text:.1f}", textposition="outside")
-            fig_inet.update_layout(height=280)
+                              color_discrete_sequence=["#10B981", "#EF4444"],
+                              text="Avg Score", title="Digital Divide: Internet Access vs Academic Score")
+            fig_inet.update_traces(texttemplate="%{text:.1f}", textposition="outside",
+                                   textfont_color="#CBD5E1", marker_line_width=0)
+            fig_inet.update_layout(height=290, **_sdg)
             st.plotly_chart(fig_inet, use_container_width=True)
 
 
