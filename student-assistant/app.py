@@ -411,8 +411,7 @@ def render_login():
         st.markdown("<br>", unsafe_allow_html=True)
 
         with st.container(border=True):
-            st.markdown("#### 🔐 Sign In")
-            st.markdown("Enter your credentials to access your portal.")
+            st.markdown("#### Login")
             st.markdown("&nbsp;")
 
             username = st.text_input("Username", placeholder="Enter username",
@@ -421,7 +420,7 @@ def render_login():
                                      type="password", key="login_password")
             st.markdown("&nbsp;")
 
-            if st.button("Sign In →", type="primary", use_container_width=True):
+            if st.button("Login", type="primary", use_container_width=True):
                 uname = username.strip().lower()
                 if uname in CREDENTIALS and password == CREDENTIALS[uname]["password"]:
                     role = CREDENTIALS[uname]["role"]
@@ -433,10 +432,19 @@ def render_login():
                     st.session_state.chat_history = []
                     st.rerun()
                 else:
-                    st.session_state.login_error = "❌ Incorrect username or password. Please try again."
+                    st.session_state.login_error = "Incorrect username or password. Please try again."
 
             if st.session_state.get("login_error"):
                 st.error(st.session_state.login_error)
+
+        with st.expander("💡 Demo Credentials (For Testing)"):
+            st.markdown(
+                "| Portal | Username | Password |\n"
+                "|---|---|---|\n"
+                "| ⚙️ Admin Portal | `admin` | `admin123` |\n"
+                "| 📊 Teacher Portal | `teacher` | `teacher123` |\n"
+                "| 🎒 Student Portal | `student` | `student123` |"
+            )
 
         st.markdown("<br>", unsafe_allow_html=True)
         st.caption(
