@@ -1,0 +1,106 @@
+Enhance the current role-based Streamlit AI educational platform by implementing TRUE role-specific permissions and authority controls WITHOUT removing any existing functionality.
+
+IMPORTANT:
+Each role must feel like it has different responsibilities and powers, similar to a real-world educational AI management system.
+
+ROLE AUTHORITY REQUIREMENTS:
+
+1. STUDENT ROLE
+   Students should ONLY have access to:
+
+* AI performance prediction
+* Personalized study recommendations
+* AI educational chatbot
+* Personal performance insights
+* Motivation and improvement tips
+
+Students must NOT be able to:
+
+* access raw dataset
+* retrain models
+* reload data
+* access system analytics
+* view other student records
+
+The Student Portal should feel personal and guidance-focused.
+
+2. ADMIN ROLE
+   Admin should have the highest authority level.
+
+Admin-only permissions:
+
+* Reload dataset
+* View raw dataframe
+* Run data health checks
+* Retrain machine learning models
+* View model accuracy metrics
+* Monitor system statistics
+* Access technical analytics
+* Manage AI system operations
+
+Add clear visual indicators showing:
+“Admin Access Only”
+
+The Admin Portal should feel technical and system-management focused.
+
+3. TEACHER / CLIENT ROLE
+   Teacher/Client users should have management-level access.
+
+Teacher permissions:
+
+* View weak student reports
+* Monitor at-risk students
+* View average scores
+* Access educational analytics
+* View SDG 4 progress reports
+* Analyze school performance trends
+
+Teachers must NOT:
+
+* retrain models
+* reload dataset
+* access technical backend tools
+
+The Teacher Portal should feel like an educational decision-making dashboard.
+
+4. ROLE-BASED ACCESS CONTROL
+   Implement proper role-based conditional rendering using session_state.
+
+Each role should ONLY see:
+
+* their own tools
+* their own navigation
+* their own dashboard sections
+
+The app should feel like:
+
+* 3 separate systems inside one platform
+
+5. VISION 2030 & 2035 ALIGNMENT
+   Strengthen the Vision alignment section by showing HOW the system supports these goals through functionality:
+
+Vision 2030:
+
+* digital knowledge economy
+* AI-assisted learning
+* workforce capability enhancement
+
+Vision 2035:
+
+* AI-driven educational quality assurance
+* predictive educational analytics
+* digital transformation in education
+* equitable student support systems
+
+Tie these directly to:
+
+* weak student detection
+* AI predictions
+* personalized learning support
+* educational analytics dashboards
+
+IMPORTANT:
+Do not simply display Vision text.
+Demonstrate the Vision goals through actual system functionality and role-based operations.
+
+The final result should feel like a real AI-powered educational management ecosystem with proper authority separation, intelligent workflows, and realistic educational governance structure.
