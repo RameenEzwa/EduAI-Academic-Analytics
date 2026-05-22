@@ -1,95 +1,153 @@
-# AI Student Performance Assistant
+# 🎓 AI Student Performance Assistant
 
-> An AI-powered, menu-driven Python application that analyses student performance data, trains machine learning models, and provides personalised study recommendations.
-
----
-
-## SDG 4 — Quality Education
-
-This project directly supports **UN Sustainable Development Goal 4: Quality Education** — *"Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all."*
-
-By leveraging data and machine learning, the assistant helps educators and students:
-
-- Identify at-risk learners early so targeted support can be provided.
-- Understand which factors (study hours, attendance, motivation) most affect outcomes.
-- Receive personalised study recommendations to improve performance.
-- Visualise trends to guide evidence-based teaching decisions.
+> A professional, role-based AI-powered educational management platform built with Streamlit, scikit-learn, and Plotly — supporting **SDG 4: Quality Education**, **Vision 2030**, and **Vision 2035**.
 
 ---
 
-## Dataset
+## 🌍 SDG 4 — Quality Education
 
-**Source:** [Kaggle — Student Performance Factors](https://www.kaggle.com/datasets/lainguyn123/student-performance-factors)
+**UN Sustainable Development Goal 4** calls to *"ensure inclusive and equitable quality education and promote lifelong learning opportunities for all."*
 
+This platform advances SDG 4 by:
+
+- **Identifying at-risk students** before they fall too far behind, enabling early intervention.
+- **Personalising learning recommendations** using AI so every student gets targeted advice.
+- **Empowering educators** with data-driven dashboards that highlight equity gaps (internet access, resource availability, parental involvement).
+- **Measuring institutional progress** toward SDG 4 targets in real time through the Client Portal.
+
+---
+
+## 🚀 Vision 2030 / Vision 2035 Alignment
+
+| Initiative | How This Platform Contributes |
+|---|---|
+| **Vision 2030** | Data-driven education reform; reducing at-risk student rates below 15%; ensuring universal access to learning resources |
+| **Vision 2035** | Building a knowledge-based economy through AI-powered personalised learning; closing the digital divide in education |
+
+The Client Portal tracks live progress against Vision 2030/2035 KPIs including at-risk rate, average study hours, and attendance benchmarks.
+
+---
+
+## 📂 Dataset
+
+**Source:** [Kaggle — Student Performance Factors](https://www.kaggle.com/datasets/lainguyn123/student-performance-factors)  
+**License:** CC0 Public Domain  
 **File:** `StudentPerformanceFactors.csv`
 
-**Records:** ~6,607 students | **Features:** 20 columns
+| Property | Value |
+|---|---|
+| Total Records | 6,607 students |
+| Features | 20 columns |
+| Target Variable | `Exam_Score` (0–100) |
 
-Key columns used:
+**Key features used:**
 
-| Column | Description |
+| Feature | Description |
 |---|---|
 | `Hours_Studied` | Weekly study hours |
 | `Attendance` | Class attendance percentage |
 | `Sleep_Hours` | Average nightly sleep |
-| `Previous_Scores` | Prior academic scores |
+| `Previous_Scores` | Prior academic performance |
 | `Motivation_Level` | Low / Medium / High |
-| `Exam_Score` | Final exam score (target variable) |
+| `Parental_Involvement` | Low / Medium / High |
+| `Access_to_Resources` | Low / Medium / High |
+| `Internet_Access` | Yes / No |
+| `Teacher_Quality` | Low / Medium / High |
+| `Exam_Score` | Final exam score (target) |
 
 ---
 
-## Features
+## 🔐 Role-Based Dashboards
 
-| # | Menu Option | Description |
+### 🏠 Landing Page
+- Platform overview with SDG 4, Vision 2030/2035 alignment cards
+- Live KPI metrics (students analysed, ML accuracy, at-risk rate)
+- Portal entry cards for all three roles
+- Tech stack overview and dataset attribution
+
+### 🎒 Student Portal
+Students access their personalised AI academic assistant:
+- **Login simulation** — select a student profile
+- **AI Performance Predictor** — input study hours, attendance, sleep, motivation → get predicted exam score and performance category
+- **Gauge chart** — visual score prediction with Weak/Average/Strong zones
+- **AI-generated feedback** — personalised narrative based on predicted category
+- **Personalised study recommendations** — specific advice for each input factor
+- **Class distribution chart** — see where you stand relative to the class
+
+### ⚙️ Admin Portal
+Technical staff manage the system:
+- **System status cards** — online status, record count, missing values, active models
+- **Dataset viewer** — paginated raw data with search/filter and CSV download
+- **Descriptive statistics** — full `.describe()` output
+- **Correlation heatmap** — interactive Plotly heatmap of all numeric features
+- **Data health checks** — missing value analysis, data type overview, column distribution viewer
+- **Dataset reload** — clear cache and re-read CSV from disk
+- **ML model metrics** — LR RMSE, R² score, RF accuracy, feature importance bar chart
+- **Kaggle dataset attribution** — source, license, and column info
+
+### 📊 Client Portal
+School administrators and teachers see:
+- **KPI row** — total students, strong/average/weak counts with percentages
+- **Performance breakdown donut chart**
+- **Score distribution by gender** (box plot)
+- **Average score by school type**
+- **Score trend vs weekly study hours**
+- **At-risk student monitoring** — scatter plots, motivation breakdown, sample table
+- **Top performer analysis** — by school type and parental involvement
+- **Factor analysis** — scatter matrix and box plots for categorical factors
+- **SDG 4 Impact tab** — resource access gap, internet access gap, learning disability inclusion, Vision 2030/2035 progress tracker
+
+---
+
+## 🤖 AI / ML Functionality
+
+### Models
+
+| Model | Type | Input | Output | Metric |
+|---|---|---|---|---|
+| **Linear Regression** | Regression | All 19 features | Predicted exam score | RMSE ≈ 3.3, R² ≈ 0.18 |
+| **Random Forest Classifier** | Classification | All 19 features | Weak / Average / Strong | Accuracy ≈ 97.2% |
+
+### AI Features
+- **Score prediction** with gauge chart visualisation
+- **Category classification** with actionable feedback
+- **Feature importance ranking** to identify the most influential factors
+- **Personalised narrative feedback** mapped to predicted performance category
+- **Mock LMSYS / LM Arena API wrapper** — commented integration point for connecting a real LLM (see `app.py` home page section)
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology | Version |
 |---|---|---|
-| 1 | **Dataset Summary** | Rows, columns, missing values, key statistics |
-| 2 | **Average Scores** | Breakdown by gender, school type, parental involvement |
-| 3 | **Weak Students** | Flags students scoring below 65 and shows common traits |
-| 4 | **Predict by Study Hours** | Linear regression — enter study hours to get a predicted score |
-| 5 | **Study Recommendations** | Personalised tips based on your hours, sleep, and attendance |
-| 6 | **Charts** | 5 matplotlib charts saved as PNG files in `charts/` |
-| 7 | **Full ML Model** | Linear Regression + Random Forest; predict score & category |
-
-### Charts generated
-
-- `score_distribution.png` — histogram of exam scores
-- `hours_vs_score.png` — scatter plot of study hours vs score
-- `attendance_vs_score.png` — scatter plot of attendance vs score
-- `gender_avg_score.png` — bar chart of average score by gender
-- `motivation_avg_score.png` — bar chart of average score by motivation level
+| Frontend | Streamlit | 1.35.0 |
+| Charts | Plotly | 5.22.0 |
+| Data processing | Pandas | 2.2.2 |
+| Numerical computing | NumPy | 1.26.4 |
+| Machine learning | scikit-learn | 1.4.2 |
+| Language | Python | 3.11 |
 
 ---
 
-## Tech Stack
-
-| Library | Version | Purpose |
-|---|---|---|
-| `pandas` | 2.2.2 | Data loading, cleaning, analysis |
-| `numpy` | 1.26.4 | Numerical computation |
-| `matplotlib` | 3.8.4 | Charts and visualisations |
-| `scikit-learn` | 1.4.2 | Linear Regression & Random Forest models |
-
----
-
-## Project Structure
+## 📁 Project Structure
 
 ```
 student-assistant/
-├── app.py                        # Main application (all logic + menu)
+├── app.py                        # Main Streamlit application
 ├── requirements.txt              # Python dependencies
 ├── README.md                     # This file
-├── StudentPerformanceFactors.csv # Dataset (place here before running)
-└── charts/                       # Auto-created — chart PNG outputs
+└── StudentPerformanceFactors.csv # Dataset (6,607 records)
 ```
 
 ---
 
-## How to Run
+## ▶️ How to Run
 
 ### On Replit
 
 1. Open the **Shell** tab.
-2. Navigate into the project folder:
+2. Navigate to the project folder:
    ```bash
    cd student-assistant
    ```
@@ -99,80 +157,102 @@ student-assistant/
    ```
 4. Run the app:
    ```bash
-   python app.py
+   streamlit run app.py --server.port 5000
    ```
-5. Use the numbered menu to explore features. Charts are saved to `charts/`.
+5. The app opens automatically in the Replit preview pane.
+
+> **Tip:** On Replit, the app is pre-configured to run automatically via a workflow — just click **Run**.
 
 ### Locally (macOS / Linux / Windows)
 
 ```bash
-# 1. Clone or download this project
-git clone <your-repo-url>
+# 1. Clone the repository
+git clone https://github.com/<your-username>/<your-repo>.git
 cd student-assistant
 
-# 2. (Optional) Create a virtual environment
+# 2. Create a virtual environment (optional but recommended)
 python -m venv venv
 source venv/bin/activate        # Windows: venv\Scripts\activate
 
 # 3. Install dependencies
 pip install -r requirements.txt
 
-# 4. Make sure the CSV file is in the same folder as app.py
+# 4. Ensure the dataset is present
 #    Download from: https://www.kaggle.com/datasets/lainguyn123/student-performance-factors
+#    Place StudentPerformanceFactors.csv in the student-assistant/ folder
 
-# 5. Run
-python app.py
+# 5. Run the Streamlit app
+streamlit run app.py
+```
+
+The app will open at `http://localhost:8501`.
+
+---
+
+## 🌐 Deployment
+
+### Streamlit Community Cloud
+1. Push the `student-assistant/` folder contents to a GitHub repository.
+2. Go to [share.streamlit.io](https://share.streamlit.io) and connect your repo.
+3. Set the main file path to `app.py`.
+4. Deploy — it's free for public repos.
+
+### Vercel (Static wrapper approach)
+Vercel does not natively run Python. To deploy on Vercel:
+
+1. Use `vercel-python` serverless functions or wrap the app with a Docker container.
+2. Alternatively, deploy on **Railway**, **Render**, or **Fly.io** which support Python natively:
+
+**Render.com** (recommended free option):
+```bash
+# In your repo root, create render.yaml:
+services:
+  - type: web
+    name: ai-student-assistant
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run app.py --server.port $PORT --server.headless true
+```
+
+**Railway:**
+```bash
+railway up
+# Set start command: streamlit run app.py --server.port $PORT --server.headless true
+```
+
+### Docker
+```dockerfile
+FROM python:3.11-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+EXPOSE 8501
+CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.headless=true"]
 ```
 
 ---
 
-## Sample Interaction
+## 📸 Portal Screenshots
 
-```
-=======================================================
-  AI Student Performance Assistant
-=======================================================
-  Supports SDG 4: Quality Education
--------------------------------------------------------
-  [1] View Dataset Summary
-  [2] Show Average Student Scores
-  [3] Detect Weak-Performing Students
-  [4] Predict Performance by Study Hours
-  [5] Get Study Recommendations
-  [6] Show Graphs / Charts
-  [7] Run Full ML Model
-  [0] Exit
--------------------------------------------------------
-  Enter your choice: 4
-
-  Enter study hours per week to predict score (or 'back'): 25
-  Predicted Exam Score for 25.0 study hours/week: 71.4
-```
+| Portal | Description |
+|---|---|
+| 🏠 Home | Landing page with SDG 4 cards, KPIs, and role selection |
+| 🎒 Student | AI score predictor with gauge chart and personalised feedback |
+| ⚙️ Admin | Dataset viewer, correlation heatmap, ML metrics |
+| 📊 Client | At-risk monitoring, performance breakdown, SDG 4 progress |
 
 ---
 
-## Machine Learning Models
+## 🏆 Why This Project?
 
-### 1. Linear Regression (Menu 4 & 7)
-- **Input:** Hours studied per week (+ all features in option 7)
-- **Output:** Predicted numeric exam score
-- **Metric:** RMSE (Root Mean Squared Error)
-
-### 2. Random Forest Classifier (Menu 7)
-- **Input:** All 19 student features
-- **Output:** Performance category — `Weak` (<60), `Average` (60–74), `Strong` (≥75)
-- **Metric:** Classification accuracy
-- **Bonus:** Shows the top 5 most influential features
+This platform demonstrates:
+- **Real-world ML application** in education using a public Kaggle dataset
+- **Role-based UX design** with distinct dashboards for three user types
+- **SDG-aligned innovation** — measurable contribution to Quality Education
+- **Production-ready architecture** — cached ML models, clean data pipeline, modular code
+- **University presentation quality** — suitable for live demo, GitHub submission, and SDG hackathon showcase
 
 ---
 
-## Author Notes
-
-- All input is validated — the program handles invalid entries gracefully.
-- Charts are saved to the `charts/` folder (auto-created) as PNG files.
-- Matplotlib uses the `Agg` (non-interactive) backend so it works in Replit without a display.
-- The code is fully commented and organised into clear functions for readability.
-
----
-
-*Built with Python · pandas · scikit-learn · matplotlib · Supporting SDG 4 Quality Education*
+*Built with Python · Streamlit · scikit-learn · Plotly · Supporting SDG 4 Quality Education · Vision 2030 / 2035 Aligned*

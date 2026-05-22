@@ -1,0 +1,133 @@
+ransform the current AI Student Performance Assistant into a professional role-based Streamlit AI web application with authentication-style role selection and separate dashboards.
+
+IMPORTANT:
+The application should feel like a real AI-powered educational management system, not just a simple data analysis app.
+
+Use the existing Kaggle dataset:
+"StudentPerformanceFactors.csv"
+
+MAIN REQUIREMENTS:
+
+1. LANDING PAGE / HOME SCREEN
+
+* Create a beautiful homepage with:
+
+  * Project title
+  * SDG 4 (Quality Education) explanation
+  * Vision 2030 and Vision 2035 alignment
+  * AI-powered education assistant description
+  * Buttons/cards to enter different portals:
+
+    * Student Portal
+    * Admin Portal
+    * Client Portal
+
+* Add professional UI styling using Streamlit components.
+
+* Add metrics/cards and modern layout.
+
+2. ROLE-BASED PORTALS (SEPARATE VIEWS)
+
+A. STUDENT PORTAL (USER VIEW)
+This should feel like a student dashboard.
+
+Features:
+
+* Student login simulation (simple username dropdown or input)
+* AI Performance Predictor
+* Personalized study recommendations
+* Predicted exam score
+* Academic improvement tips
+* Motivation/performance indicators
+* Student-specific charts
+* AI-generated learning feedback
+
+Goal:
+Help students improve performance using AI.
+
+B. ADMIN PORTAL
+This should feel like a system management dashboard.
+
+Features:
+
+* Dataset summary
+* Full dataframe viewer
+* Data health checks
+* Missing value analysis
+* Dataset reload button
+* ML model training section
+* Model accuracy metrics
+* Kaggle dataset hosting information
+* System analytics
+* Technical monitoring cards
+
+Goal:
+Allow admins to monitor the educational AI system and data.
+
+C. CLIENT PORTAL
+This should feel like a dashboard for school administration/teachers.
+
+Features:
+
+* High-level analytics
+* Weak student monitoring
+* At-risk student detection
+* Average score analytics
+* Top-performing students
+* Bottom-performing students
+* School performance insights
+* Interactive Plotly charts
+* Educational impact reports
+* SDG 4 progress insights
+
+Goal:
+Help schools and decision-makers improve educational quality.
+
+3. AI FEATURES
+
+* Keep machine learning prediction functionality.
+* Use scikit-learn models already present.
+* Add AI insight messages and prediction explanations.
+* Add a mock LMSYS / LM Arena API integration wrapper with comments.
+
+4. UI / DESIGN
+
+* Use Streamlit frontend.
+* Use Plotly interactive charts.
+* Use st.metric, containers, columns, expanders, and styled sections.
+* Make UI modern and presentation-ready.
+* Add icons/emojis where suitable.
+* Make it look like a real SaaS AI dashboard.
+
+5. PRESENTATION MODE
+
+* Ensure the app works properly in Replit Preview.
+* Ensure it is deployable on Vercel.
+* Make navigation smooth and visually impressive for live demo presentation.
+
+6. DATASET REQUIREMENTS
+
+* Continue processing all 6,607 student rows correctly.
+* Clearly mention dataset source:
+  Kaggle - Student Performance Factors Dataset.
+
+7. PROJECT STRUCTURE
+   Update:
+
+* app.py
+* requirements.txt
+* README.md
+
+8. README REQUIREMENTS
+   README must include:
+
+* SDG 4 explanation
+* Vision 2030/2035 alignment
+* Kaggle dataset source
+* Role-based dashboards explanation
+* AI/ML functionality
+* Deployment instructions
+* Vercel deployment support
+
+IMPORTANT:
+The final result should look like a complete AI educational management platform suitable for university presentation, GitHub submission, live demo, and SDG-focused AI innovation showcase.
