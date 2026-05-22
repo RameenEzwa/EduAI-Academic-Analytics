@@ -42,6 +42,15 @@ DATASET_FILE   = "StudentPerformanceFactors.csv"
 WEAK_THRESHOLD = 60
 AVG_THRESHOLD  = 75
 
+# ─────────────────────────────────────────────────────────────
+# CREDENTIALS  (username → password + role)
+# ─────────────────────────────────────────────────────────────
+CREDENTIALS = {
+    "admin":   {"password": "admin123",   "role": "admin"},
+    "teacher": {"password": "teacher123", "role": "teacher"},
+    "student": {"password": "student123", "role": "student"},
+}
+
 # Role definitions with permissions
 ROLES = {
     "student": {
@@ -123,12 +132,14 @@ def access_denied(feature: str = "this feature"):
 # ─────────────────────────────────────────────────────────────
 def init_state():
     defaults = {
-        "page":          "home",
+        "logged_in":     False,
+        "page":          "login",
         "username":      "",
         "role":          "",
         "chat_history":  [],
         "retrain_count": 0,
         "last_retrain":  None,
+        "login_error":   "",
     }
     for k, v in defaults.items():
         if k not in st.session_state:
@@ -143,10 +154,19 @@ init_state()
 def go_to(page: str, username: str = "", role: str = ""):
     st.session_state.page         = page
     st.session_state.chat_history = []
+    st.session_state.login_error  = ""
     if username:
         st.session_state.username = username
     if role:
         st.session_state.role     = role
+    st.rerun()
+
+
+def logout():
+    for key in ["logged_in", "page", "username", "role",
+                "chat_history", "retrain_count", "last_retrain", "login_error"]:
+        if key in st.session_state:
+            del st.session_state[key]
     st.rerun()
 
 
@@ -307,7 +327,7 @@ def chatbot_response(user_input: str) -> str:
 # SIDEBAR  (role-aware)
 # ─────────────────────────────────────────────────────────────
 def render_sidebar():
-    if st.session_state.page == "home":
+    if not st.session_state.get("logged_in", False):
         return
 
     role     = st.session_state.role
@@ -358,8 +378,8 @@ def render_sidebar():
 
         st.divider()
 
-        if st.button("🏠  Back to Home", use_container_width=True):
-            go_to("home")
+        if st.button("🚪  Log Out", use_container_width=True, type="secondary"):
+            logout()
 
         st.divider()
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -368,99 +388,62 @@ def render_sidebar():
 
 
 # ─────────────────────────────────────────────────────────────
-# HOME PAGE
+# LOGIN PAGE
 # ─────────────────────────────────────────────────────────────
-def render_home():
-    st.markdown(
-        "<h1 style='text-align:center;padding-top:1.5rem;'>🎓 AI Student Performance Assistant</h1>",
-        unsafe_allow_html=True,
-    )
-    st.markdown(
-        "<p style='text-align:center;font-size:1.15rem;color:gray;'>"
-        "An AI-powered educational management platform · "
-        "<strong>SDG 4: Quality Education</strong> · Vision 2030 / 2035"
-        "</p>",
-        unsafe_allow_html=True,
-    )
-    st.markdown("<br>", unsafe_allow_html=True)
+def render_login():
+    """Secure single-entry login page. No portal content is visible until authenticated."""
 
-    sc1, sc2 = st.columns(2)
-    with sc1:
-        st.info(
-            "**🌍 SDG 4 — Quality Education**  \n"
-            "Ensure inclusive, equitable quality education and promote "
-            "lifelong learning opportunities for all.",
+    # Centre the form with empty column padding
+    _, centre, _ = st.columns([1, 1.4, 1])
+
+    with centre:
+        st.markdown("<br><br>", unsafe_allow_html=True)
+        st.markdown(
+            "<h2 style='text-align:center;'>🎓 AI Student Performance Assistant</h2>",
+            unsafe_allow_html=True,
         )
-    with sc2:
-        st.success(
-            "**🚀 Vision 2030 / 2035**  \n"
-            "Building a knowledge-based economy through AI-driven personalised "
-            "learning and data-informed educational governance.",
+        st.markdown(
+            "<p style='text-align:center;color:gray;font-size:1rem;'>"
+            "SDG 4: Quality Education &nbsp;·&nbsp; Vision 2030 / 2035"
+            "</p>",
+            unsafe_allow_html=True,
         )
+        st.markdown("<br>", unsafe_allow_html=True)
 
-    st.divider()
-    st.markdown(
-        "<h3 style='text-align:center;'>Select Your Portal to Begin</h3>",
-        unsafe_allow_html=True,
-    )
-    st.markdown("<br>", unsafe_allow_html=True)
-
-    c1, c2, c3 = st.columns(3, gap="large")
-
-    # ── Student card ──────────────────────────────────────────
-    with c1:
         with st.container(border=True):
-            st.markdown("## 🎒")
-            st.markdown("### Student Portal")
-            st.markdown(
-                "Your personalised AI academic assistant. Get a predicted exam score, "
-                "study recommendations, and chat with the AI educational assistant."
-            )
-            st.markdown("**You can access:**")
-            st.markdown("✅ AI Score Predictor  \n✅ Study Recommendations  \n✅ AI Educational Chatbot  \n✅ Personal Insights")
+            st.markdown("#### 🔐 Sign In")
+            st.markdown("Enter your credentials to access your portal.")
             st.markdown("&nbsp;")
-            sname = st.text_input("Your name", placeholder="e.g. Alex Johnson", key="home_sname")
-            if st.button("Enter Student Portal", key="go_student", type="primary", use_container_width=True):
-                go_to("student", username=sname or "Student", role="student")
 
-    # ── Admin card ────────────────────────────────────────────
-    with c2:
-        with st.container(border=True):
-            st.markdown("## ⚙️")
-            st.markdown("### Admin Portal")
-            st.markdown(
-                "Full system authority. Manage the dataset, monitor ML model health, "
-                "retrain models, and access all technical system analytics."
-            )
-            st.markdown("**Full authority including:**")
-            st.markdown("✅ Raw Dataset Access  \n✅ Retrain ML Models  \n✅ System Monitoring  \n✅ All Analytics")
+            username = st.text_input("Username", placeholder="Enter username",
+                                     key="login_username")
+            password = st.text_input("Password", placeholder="Enter password",
+                                     type="password", key="login_password")
             st.markdown("&nbsp;")
-            aname = st.text_input("Admin ID", placeholder="e.g. admin@school.edu", key="home_aname")
-            if st.button("Enter Admin Portal", key="go_admin", type="secondary", use_container_width=True):
-                go_to("admin", username=aname or "Admin", role="admin")
 
-    # ── Teacher card ──────────────────────────────────────────
-    with c3:
-        with st.container(border=True):
-            st.markdown("## 📊")
-            st.markdown("### Teacher Portal")
-            st.markdown(
-                "Educational decision-making dashboard. Monitor at-risk students, "
-                "analyse class performance, and track SDG 4 progress."
-            )
-            st.markdown("**Educational authority:**")
-            st.markdown("✅ At-Risk Monitoring  \n✅ Class Analytics  \n✅ SDG 4 Reports  \n🔒 No System Access")
-            st.markdown("&nbsp;")
-            tname = st.text_input("Teacher name", placeholder="e.g. Ms. Rivera", key="home_tname")
-            if st.button("Enter Teacher Portal", key="go_teacher", use_container_width=True):
-                go_to("teacher", username=tname or "Teacher", role="teacher")
+            if st.button("Sign In →", type="primary", use_container_width=True):
+                uname = username.strip().lower()
+                if uname in CREDENTIALS and password == CREDENTIALS[uname]["password"]:
+                    role = CREDENTIALS[uname]["role"]
+                    st.session_state.logged_in    = True
+                    st.session_state.username     = username.strip()
+                    st.session_state.role         = role
+                    st.session_state.page         = role
+                    st.session_state.login_error  = ""
+                    st.session_state.chat_history = []
+                    st.rerun()
+                else:
+                    st.session_state.login_error = "❌ Incorrect username or password. Please try again."
 
-    st.divider()
-    st.caption(
-        "Dataset: [Kaggle — Student Performance Factors]"
-        "(https://www.kaggle.com/datasets/lainguyn123/student-performance-factors) "
-        "· 6,607 records · 20 features · CC0 License"
-    )
+            if st.session_state.get("login_error"):
+                st.error(st.session_state.login_error)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.caption(
+            "Dataset: [Kaggle — Student Performance Factors]"
+            "(https://www.kaggle.com/datasets/lainguyn123/student-performance-factors) "
+            "· 6,607 records · CC0 License"
+        )
 
 
 # ─────────────────────────────────────────────────────────────
@@ -1196,17 +1179,18 @@ def render_teacher(df):
 # MAIN
 # ─────────────────────────────────────────────────────────────
 def main():
-    render_sidebar()
-    page = st.session_state.page
-
-    if page == "home":
-        render_home()
+    # Gate: if not authenticated, only show the login page
+    if not st.session_state.get("logged_in", False):
+        render_login()
         return
+
+    render_sidebar()
 
     with st.spinner("Loading AI models…"):
         df = load_data()
         lr, rf, feat_cols, df_ml, metrics = train_models(df)
 
+    page = st.session_state.page
     if page == "student":
         render_student(df, lr, rf, feat_cols, df_ml, metrics)
     elif page == "admin":
@@ -1214,7 +1198,7 @@ def main():
     elif page == "teacher":
         render_teacher(df)
     else:
-        render_home()
+        render_login()
 
 
 if __name__ == "__main__":
