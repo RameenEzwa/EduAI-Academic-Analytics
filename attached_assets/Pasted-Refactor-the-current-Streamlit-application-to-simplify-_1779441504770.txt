@@ -1,0 +1,130 @@
+Refactor the current Streamlit application to simplify and clean the entire user experience WITHOUT removing the existing AI features, ML models, analytics, charts, or dataset processing.
+
+IMPORTANT:
+The current app feels cluttered because too many features are exposed in the sidebar and multiple sections appear mixed together.
+
+The goal now is NOT to add more features.
+The goal is to redesign the flow so the app feels like a clean professional AI platform.
+
+MAIN UX REQUIREMENTS:
+
+1. REMOVE SIDEBAR-FIRST EXPERIENCE
+   Do NOT use the sidebar as the main navigation system anymore.
+
+Instead:
+
+* Create a proper FRONT HOME PAGE.
+* The homepage should be the first thing users see.
+* Use large centered cards/buttons for:
+
+  * Student Portal
+  * Admin Portal
+  * Teacher Portal
+
+The homepage should feel modern, clean, and presentation-ready.
+
+2. CLEAN LANDING PAGE
+   The landing page should include:
+
+* Project title
+* Short SDG 4 explanation
+* Short Vision 2030/2035 explanation
+* A clean hero section
+* Professional design
+* 3 large clickable portal cards/buttons
+
+IMPORTANT:
+Do NOT clutter the homepage with analytics, charts, or reports.
+
+3. TRUE ROLE SEPARATION
+   When a user selects a portal:
+
+* ONLY that dashboard should open.
+* Other role tools must NOT appear.
+
+Example:
+Student Portal:
+
+* prediction
+* recommendations
+* AI assistant
+
+ONLY.
+
+Admin Portal:
+
+* dataset management
+* system analytics
+* ML monitoring
+
+ONLY.
+
+Teacher Portal:
+
+* weak student reports
+* school analytics
+* SDG reports
+
+ONLY.
+
+The portals should feel completely separate.
+
+4. SIMPLIFY SIDEBAR
+   The sidebar should ONLY contain:
+
+* user info
+* logout button
+* small navigation/help items
+
+NOT the full application structure.
+
+5. REMOVE UNUSED/EMPTY SECTIONS
+   Currently some sections like:
+
+* demo session
+* footer links
+* SDG cards
+  appear visually but do not do anything meaningful.
+
+Fix this by:
+
+* removing empty placeholder behavior
+* making sections useful
+  OR simplifying them.
+
+6. CLEANER PAGE FLOW
+   The app should follow this flow:
+
+Landing Page
+→ Choose Portal
+→ Login
+→ Enter Single Focused Dashboard
+
+NOT:
+Sidebar first → everything mixed together.
+
+7. DESIGN IMPROVEMENTS
+   Use:
+
+* centered containers
+* large buttons/cards
+* proper spacing
+* minimal clean UI
+* modern dashboard feel
+
+Avoid:
+
+* too many sections on one page
+* overcrowded sidebar
+* repeated SDG text everywhere
+
+8. FINAL GOAL
+   The final result should feel like:
+
+* a real AI educational platform
+* a clean SaaS dashboard
+* easy to demo live
+* simple to understand immediately
+* professional and organized
+
+while keeping all current ML functionality and dataset processing intact.
