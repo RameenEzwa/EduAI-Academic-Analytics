@@ -36,6 +36,231 @@ st.set_page_config(
 )
 
 # ─────────────────────────────────────────────────────────────
+# GLOBAL THEME  — Deep Navy & Emerald/Teal
+# ─────────────────────────────────────────────────────────────
+st.markdown("""
+<style>
+/* ── Palette variables ────────────────────────────────────── */
+:root {
+    --navy:        #1E3A8A;
+    --navy-light:  #2D4FA6;
+    --navy-dark:   #162D6E;
+    --teal:        #10B981;
+    --teal-light:  #34D399;
+    --teal-dark:   #059669;
+    --bg:          #F8FAFC;
+    --card-bg:     #FFFFFF;
+    --border:      #E2E8F0;
+    --text-muted:  #64748B;
+}
+
+/* ── App background ───────────────────────────────────────── */
+.stApp {
+    background-color: var(--bg);
+}
+
+/* ── Sidebar ──────────────────────────────────────────────── */
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #1E3A8A 0%, #162D6E 100%) !important;
+}
+[data-testid="stSidebar"] * {
+    color: #E2E8F0 !important;
+}
+[data-testid="stSidebar"] hr {
+    border-color: rgba(255,255,255,0.15) !important;
+}
+[data-testid="stSidebar"] .stButton > button {
+    background: rgba(255,255,255,0.1) !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255,255,255,0.25) !important;
+    border-radius: 8px !important;
+}
+[data-testid="stSidebar"] .stButton > button:hover {
+    background: rgba(255,255,255,0.2) !important;
+}
+
+/* ── Primary buttons ──────────────────────────────────────── */
+.stButton > button[kind="primary"] {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%) !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.3px !important;
+    padding: 0.55rem 1.2rem !important;
+    transition: opacity 0.2s ease !important;
+}
+.stButton > button[kind="primary"]:hover {
+    opacity: 0.88 !important;
+}
+
+/* ── Secondary buttons ────────────────────────────────────── */
+.stButton > button[kind="secondary"] {
+    border: 1.5px solid var(--navy) !important;
+    color: var(--navy) !important;
+    border-radius: 8px !important;
+    background: transparent !important;
+}
+.stButton > button[kind="secondary"]:hover {
+    background: rgba(30,58,138,0.06) !important;
+}
+
+/* ── Input fields ─────────────────────────────────────────── */
+.stTextInput > div > div > input {
+    border: 1.5px solid var(--border) !important;
+    border-radius: 8px !important;
+    background: var(--card-bg) !important;
+    padding: 0.5rem 0.75rem !important;
+    transition: border-color 0.2s ease;
+}
+.stTextInput > div > div > input:focus {
+    border-color: var(--navy) !important;
+    box-shadow: 0 0 0 3px rgba(30,58,138,0.12) !important;
+}
+
+/* ── Metric cards ─────────────────────────────────────────── */
+[data-testid="stMetric"] {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.9rem 1rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+[data-testid="stMetricLabel"] {
+    color: var(--text-muted) !important;
+    font-size: 0.78rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+[data-testid="stMetricValue"] {
+    color: var(--navy) !important;
+    font-weight: 700 !important;
+}
+[data-testid="stMetricDelta"] svg { display: none; }
+
+/* ── Bordered containers ──────────────────────────────────── */
+[data-testid="stVerticalBlockBorderWrapper"] > div {
+    border: 1px solid var(--border) !important;
+    border-radius: 12px !important;
+    background: var(--card-bg) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
+}
+
+/* ── Tab styling ──────────────────────────────────────────── */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 4px;
+    background: var(--bg);
+    border-bottom: 2px solid var(--border);
+}
+.stTabs [data-baseweb="tab"] {
+    border-radius: 8px 8px 0 0 !important;
+    color: var(--text-muted) !important;
+    font-weight: 500 !important;
+    padding: 0.5rem 1.1rem !important;
+}
+.stTabs [aria-selected="true"] {
+    background: var(--card-bg) !important;
+    color: var(--navy) !important;
+    font-weight: 700 !important;
+    border-bottom: 2px solid var(--navy) !important;
+}
+
+/* ── Dividers ─────────────────────────────────────────────── */
+hr { border-color: var(--border) !important; }
+
+/* ── Headings ─────────────────────────────────────────────── */
+h1, h2, h3 { color: var(--navy) !important; }
+
+/* ── Expander ─────────────────────────────────────────────── */
+[data-testid="stExpander"] {
+    border: 1px solid var(--border) !important;
+    border-radius: 10px !important;
+    background: var(--card-bg) !important;
+}
+
+/* ── Success / info / warning alerts ─────────────────────── */
+[data-testid="stAlert"][data-baseweb="notification"] {
+    border-radius: 10px !important;
+}
+
+/* ── Login card helper class ──────────────────────────────── */
+.login-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2.5rem 2rem 2rem;
+    box-shadow: 0 8px 32px rgba(30,58,138,0.10), 0 1.5px 4px rgba(0,0,0,0.06);
+    margin-top: 1rem;
+}
+.login-logo {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+.login-title {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: var(--navy) !important;
+    text-align: center;
+    margin-bottom: 0.25rem;
+}
+.login-sub {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+.cred-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.55rem 0.75rem;
+    border-radius: 8px;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+}
+.cred-admin   { background: rgba(30,58,138,0.07);  border-left: 3px solid #1E3A8A; }
+.cred-teacher { background: rgba(16,185,129,0.08); border-left: 3px solid #10B981; }
+.cred-student { background: rgba(59,130,246,0.07); border-left: 3px solid #3B82F6; }
+.cred-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.4px;
+}
+.badge-admin   { background: #1E3A8A; color: #fff; }
+.badge-teacher { background: #10B981; color: #fff; }
+.badge-student { background: #3B82F6; color: #fff; }
+code {
+    background: #EFF6FF !important;
+    color: var(--navy) !important;
+    border-radius: 4px !important;
+    padding: 1px 5px !important;
+    font-size: 0.85rem !important;
+}
+
+/* ── Portal banner helper classes ────────────────────────── */
+.portal-banner {
+    padding: 14px 20px;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+}
+.banner-student { background: linear-gradient(135deg,#1E3A8A,#2D4FA6); }
+.banner-admin   { background: linear-gradient(135deg,#7F1D1D,#B91C1C); }
+.banner-teacher { background: linear-gradient(135deg,#065F46,#059669); }
+.banner-sub     { font-size:0.82rem; font-weight:400; opacity:0.85; margin-left:auto; }
+</style>
+""", unsafe_allow_html=True)
+
+# ─────────────────────────────────────────────────────────────
 # CONSTANTS
 # ─────────────────────────────────────────────────────────────
 DATASET_FILE   = "StudentPerformanceFactors.csv"
@@ -397,26 +622,24 @@ def render_login():
     _, centre, _ = st.columns([1, 1.4, 1])
 
     with centre:
-        st.markdown("<br><br>", unsafe_allow_html=True)
-        st.markdown(
-            "<h2 style='text-align:center;'>🎓 AI Student Performance Assistant</h2>",
-            unsafe_allow_html=True,
-        )
-        st.markdown(
-            "<p style='text-align:center;color:gray;font-size:1rem;'>"
-            "SDG 4: Quality Education &nbsp;·&nbsp; Vision 2030 / 2035"
-            "</p>",
-            unsafe_allow_html=True,
-        )
         st.markdown("<br>", unsafe_allow_html=True)
 
-        with st.container(border=True):
-            st.markdown("#### Login")
-            st.markdown("&nbsp;")
+        # ── Styled login card ──────────────────────────────────
+        st.markdown("""
+        <div class="login-card">
+            <div class="login-logo">🎓</div>
+            <div class="login-title">AI Student Assistant</div>
+            <div class="login-sub">SDG 4: Quality Education &nbsp;·&nbsp; Vision 2030 / 2035</div>
+        </div>
+        """, unsafe_allow_html=True)
 
-            username = st.text_input("Username", placeholder="Enter username",
+        # Inputs + button inside a clean container
+        with st.container(border=True):
+            st.markdown("##### Login to your portal")
+            st.markdown("&nbsp;")
+            username = st.text_input("Username", placeholder="Enter your username",
                                      key="login_username")
-            password = st.text_input("Password", placeholder="Enter password",
+            password = st.text_input("Password", placeholder="Enter your password",
                                      type="password", key="login_password")
             st.markdown("&nbsp;")
 
@@ -437,14 +660,25 @@ def render_login():
             if st.session_state.get("login_error"):
                 st.error(st.session_state.login_error)
 
+        # ── Demo credentials ───────────────────────────────────
         with st.expander("💡 Demo Credentials (For Testing)"):
-            st.markdown(
-                "| Portal | Username | Password |\n"
-                "|---|---|---|\n"
-                "| ⚙️ Admin Portal | `admin` | `admin123` |\n"
-                "| 📊 Teacher Portal | `teacher` | `teacher123` |\n"
-                "| 🎒 Student Portal | `student` | `student123` |"
-            )
+            st.markdown("""
+<div class="cred-row cred-admin">
+  <span>⚙️ <strong>Admin Portal</strong></span>
+  <span>Username: <code>admin</code> &nbsp; Password: <code>admin123</code></span>
+  <span class="cred-badge badge-admin">ADMIN</span>
+</div>
+<div class="cred-row cred-teacher">
+  <span>📊 <strong>Teacher Portal</strong></span>
+  <span>Username: <code>teacher</code> &nbsp; Password: <code>teacher123</code></span>
+  <span class="cred-badge badge-teacher">TEACHER</span>
+</div>
+<div class="cred-row cred-student">
+  <span>🎒 <strong>Student Portal</strong></span>
+  <span>Username: <code>student</code> &nbsp; Password: <code>student123</code></span>
+  <span class="cred-badge badge-student">STUDENT</span>
+</div>
+            """, unsafe_allow_html=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
         st.caption(
@@ -462,10 +696,9 @@ def render_student(df, lr, rf, feat_cols, df_ml, metrics):
 
     # Role header
     st.markdown(
-        "<div style='background:#0d6efd;color:white;padding:10px 18px;"
-        "border-radius:10px;margin-bottom:12px;'>"
-        "🎒 <strong>Student Portal</strong> &nbsp;·&nbsp; "
-        "<span style='font-size:0.85rem;opacity:0.9;'>Personal academic AI assistant</span></div>",
+        "<div class='portal-banner banner-student'>"
+        "🎒 <strong>Student Portal</strong>"
+        "<span class='banner-sub'>Personal academic AI assistant</span></div>",
         unsafe_allow_html=True,
     )
     st.markdown(f"Welcome, **{name}**! Your AI learning assistant is ready.")
@@ -720,11 +953,9 @@ def render_student(df, lr, rf, feat_cols, df_ml, metrics):
 def render_admin(df, lr, rf, feat_cols, df_ml, metrics):
     # Admin header banner
     st.markdown(
-        "<div style='background:#dc3545;color:white;padding:10px 18px;"
-        "border-radius:10px;margin-bottom:12px;'>"
-        "⚙️ <strong>Admin Portal</strong> &nbsp;·&nbsp; "
-        "<span style='font-size:0.85rem;opacity:0.9;'>"
-        "🔒 Full System Authority — Admin Access Only</span></div>",
+        "<div class='portal-banner banner-admin'>"
+        "⚙️ <strong>Admin Portal</strong>"
+        "<span class='banner-sub'>🔒 Full System Authority — Admin Access Only</span></div>",
         unsafe_allow_html=True,
     )
     st.markdown(f"System management dashboard — logged in as **{st.session_state.username}**.")
@@ -917,11 +1148,9 @@ def render_admin(df, lr, rf, feat_cols, df_ml, metrics):
 # ─────────────────────────────────────────────────────────────
 def render_teacher(df):
     st.markdown(
-        "<div style='background:#198754;color:white;padding:10px 18px;"
-        "border-radius:10px;margin-bottom:12px;'>"
-        "📊 <strong>Teacher Portal</strong> &nbsp;·&nbsp; "
-        "<span style='font-size:0.85rem;opacity:0.9;'>"
-        "Educational Authority — Analytics & Reporting</span></div>",
+        "<div class='portal-banner banner-teacher'>"
+        "📊 <strong>Teacher Portal</strong>"
+        "<span class='banner-sub'>Educational Authority — Analytics & Reporting</span></div>",
         unsafe_allow_html=True,
     )
     st.markdown(f"Educational decision-making dashboard — **{st.session_state.username}**.")
