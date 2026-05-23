@@ -86,9 +86,19 @@ st.markdown("""
     0%   { background-position: -200% center; }
     100% { background-position:  200% center; }
 }
+@keyframes shimmerBeam {
+    0%   { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
+    15%  { opacity: 1; }
+    85%  { opacity: 1; }
+    100% { transform: translateX(220%)  skewX(-18deg); opacity: 0; }
+}
+@keyframes glassFloat {
+    0%,100% { transform: translateY(0px) rotateX(0deg); }
+    50%      { transform: translateY(-3px) rotateX(0.4deg); }
+}
 @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 15px var(--blue-glow); }
-    50%       { box-shadow: 0 0 30px rgba(59,130,246,0.45); }
+    0%, 100% { box-shadow: 0 0 15px rgba(16,185,129,0.28); }
+    50%       { box-shadow: 0 0 30px rgba(16,185,129,0.5); }
 }
 @keyframes float {
     0%, 100% { transform: translateY(0px); }
@@ -151,26 +161,48 @@ html, body, .stApp {
 
 /* ── Primary buttons ──────────────────────────────────────── */
 .stButton > button[kind="primary"] {
-    background: linear-gradient(135deg, #059669 0%, #10B981 100%) !important;
+    background: linear-gradient(135deg, #059669 0%, #10B981 50%, #34D399 100%) !important;
     color: #fff !important;
     border: none !important;
-    border-radius: 10px !important;
+    border-top: 1px solid rgba(255,255,255,0.2) !important;
+    border-radius: 12px !important;
     font-weight: 700 !important;
-    letter-spacing: 0.4px !important;
-    padding: 0.6rem 1.4rem !important;
-    transition: all 0.28s cubic-bezier(0.34,1.56,0.64,1) !important;
-    box-shadow: 0 4px 15px rgba(16,185,129,0.3) !important;
+    letter-spacing: 0.5px !important;
+    padding: 0.65rem 1.4rem !important;
+    transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1) !important;
+    box-shadow:
+        0 4px 15px rgba(16,185,129,0.35),
+        0 1px 0 rgba(255,255,255,0.15) inset !important;
     position: relative !important;
     overflow: hidden !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
+}
+/* Shimmer beam on button */
+.stButton > button[kind="primary"]::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important; left: 0 !important; bottom: 0 !important;
+    width: 55% !important;
+    background: linear-gradient(
+        105deg,
+        transparent 30%,
+        rgba(255,255,255,0.22) 50%,
+        transparent 70%
+    ) !important;
+    animation: shimmerBeam 3.5s ease-in-out 2s infinite !important;
+    pointer-events: none !important;
 }
 .stButton > button[kind="primary"]:hover {
     transform: translateY(-2px) !important;
-    box-shadow: 0 0 15px rgba(16,185,129,0.6), 0 8px 24px rgba(16,185,129,0.35) !important;
+    box-shadow:
+        0 0 20px rgba(16,185,129,0.65),
+        0 10px 30px rgba(16,185,129,0.4),
+        0 1px 0 rgba(255,255,255,0.2) inset !important;
     background: linear-gradient(135deg, #10B981 0%, #34D399 100%) !important;
 }
 .stButton > button[kind="primary"]:active {
-    transform: translateY(0px) !important;
-    box-shadow: 0 0 8px rgba(16,185,129,0.4) !important;
+    transform: translateY(0px) scale(0.98) !important;
+    box-shadow: 0 0 10px rgba(16,185,129,0.4) !important;
 }
 
 /* ── Secondary buttons ────────────────────────────────────── */
@@ -217,9 +249,11 @@ html, body, .stApp {
 .stTextInput > div > div > input:focus,
 .stTextArea textarea:focus {
     border-color: #10B981 !important;
+    border-top-color: rgba(255,255,255,0.2) !important;
     background: rgba(18,45,32,0.97) !important;
     animation: glowPulse 1.8s ease-in-out infinite !important;
     outline: none !important;
+    transform: translateY(-1px) !important;
 }
 input[type="text"]::placeholder, textarea::placeholder {
     color: #6EE7B7 !important;
@@ -391,21 +425,29 @@ code {
 .login-hero {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, #041510 0%, #071A10 50%, #0C2318 100%);
-    border: 1px solid rgba(16,185,129,0.25);
-    border-radius: 20px;
+    background:
+        linear-gradient(135deg, rgba(16,185,129,0.06) 0%, transparent 60%),
+        linear-gradient(135deg, #041510 0%, #071A10 50%, #0C2318 100%);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-top: 1px solid rgba(255,255,255,0.14);
+    border-radius: 22px;
     padding: 2.5rem 2rem 2rem;
     margin-bottom: 1.5rem;
     text-align: center;
-    animation: fadeInUp 0.6s ease;
-    box-shadow: 0 8px 40px rgba(16,185,129,0.12);
+    animation: fadeInUp 0.6s cubic-bezier(0.16,1,0.3,1);
+    box-shadow:
+        0 8px 40px rgba(0,0,0,0.55),
+        0 2px 0 rgba(255,255,255,0.06) inset,
+        0 0 60px rgba(16,185,129,0.1);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 .login-hero::before {
     content: '';
     position: absolute;
     top: -60px; left: -60px;
-    width: 220px; height: 220px;
-    background: radial-gradient(circle, rgba(16,185,129,0.22) 0%, transparent 70%);
+    width: 240px; height: 240px;
+    background: radial-gradient(circle, rgba(16,185,129,0.24) 0%, transparent 70%);
     border-radius: 50%;
     animation: orb-move 8s ease-in-out infinite;
 }
@@ -413,10 +455,30 @@ code {
     content: '';
     position: absolute;
     bottom: -40px; right: -40px;
-    width: 180px; height: 180px;
-    background: radial-gradient(circle, rgba(52,211,153,0.18) 0%, transparent 70%);
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(52,211,153,0.2) 0%, transparent 70%);
     border-radius: 50%;
     animation: orb-move 10s ease-in-out infinite reverse;
+}
+/* Shimmer beam sweeping across hero */
+.hero-shimmer {
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 50%;
+    background: linear-gradient(
+        105deg,
+        transparent 30%,
+        rgba(255,255,255,0.06) 50%,
+        rgba(52,211,153,0.08) 55%,
+        transparent 70%
+    );
+    animation: shimmerBeam 4s ease-in-out 1.5s infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+.login-logo, .login-title, .login-sub, .login-pill {
+    position: relative;
+    z-index: 2;
 }
 .login-logo {
     font-size: 3.5rem;
@@ -459,24 +521,43 @@ code {
     transform: translateY(-1px);
 }
 
-/* ── Login form card ──────────────────────────────────────── */
+/* ── Login form card — Glassmorphism ──────────────────────── */
 .login-form-section {
-    animation: slideInCard 0.6s cubic-bezier(0.16,1,0.3,1) 0.25s both;
+    animation: slideInCard 0.7s cubic-bezier(0.16,1,0.3,1) 0.25s both;
+    perspective: 1000px;
 }
 .login-form-section [data-testid="stVerticalBlockBorderWrapper"] {
-    background: rgba(10,32,20,0.92) !important;
-    border: 1px solid rgba(52,211,153,0.22) !important;
-    border-radius: 16px !important;
+    background: rgba(255,255,255,0.04) !important;
+    backdrop-filter: blur(18px) saturate(1.4) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(1.4) !important;
+    border: 1px solid rgba(255,255,255,0.09) !important;
+    border-top: 1px solid rgba(255,255,255,0.16) !important;
+    border-radius: 20px !important;
     padding: 0.5rem !important;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(16,185,129,0.08) !important;
-    transition: box-shadow 0.3s ease, border-color 0.3s ease !important;
+    box-shadow:
+        0 4px 6px rgba(0,0,0,0.3),
+        0 20px 60px rgba(0,0,0,0.55),
+        0 0 0 1px rgba(16,185,129,0.1),
+        0 1px 0 rgba(255,255,255,0.07) inset,
+        0 -1px 0 rgba(0,0,0,0.3) inset !important;
+    transition: transform 0.38s cubic-bezier(0.16,1,0.3,1),
+                box-shadow 0.38s ease,
+                border-color 0.38s ease !important;
+    transform-style: preserve-3d !important;
 }
 .login-form-section [data-testid="stVerticalBlockBorderWrapper"]:hover {
-    border-color: rgba(52,211,153,0.38) !important;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.45), 0 0 20px rgba(16,185,129,0.1) !important;
+    transform: translateY(-4px) scale(1.01) !important;
+    border-color: rgba(52,211,153,0.3) !important;
+    border-top-color: rgba(255,255,255,0.22) !important;
+    box-shadow:
+        0 4px 6px rgba(0,0,0,0.2),
+        0 28px 70px rgba(0,0,0,0.6),
+        0 0 0 1px rgba(16,185,129,0.18),
+        0 0 30px rgba(16,185,129,0.14),
+        0 1px 0 rgba(255,255,255,0.1) inset !important;
 }
 .login-creds-wrap {
-    animation: slideInCard 0.6s cubic-bezier(0.16,1,0.3,1) 0.45s both;
+    animation: slideInCard 0.7s cubic-bezier(0.16,1,0.3,1) 0.45s both;
 }
 
 /* ── Credential rows ──────────────────────────────────────── */
@@ -1133,6 +1214,7 @@ def render_login():
         # ── Premium login hero ─────────────────────────────────
         st.markdown("""
         <div class="login-hero">
+            <div class="hero-shimmer"></div>
             <span class="login-logo">🎓</span>
             <div class="login-title">EduAI Platform</div>
             <div class="login-sub">AI-Powered Academic Intelligence System</div>
