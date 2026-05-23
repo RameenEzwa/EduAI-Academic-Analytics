@@ -488,14 +488,14 @@ code {
     border-radius: 0 16px 16px 0;
 }
 .banner-student {
-    background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 60%, #3B82F6 100%);
-    border: 1px solid rgba(59,130,246,0.35);
-    box-shadow: 0 4px 24px rgba(59,130,246,0.2);
+    background: linear-gradient(135deg, #064E3B 0%, #0D9488 55%, #5EEAD4 100%);
+    border: 1px solid rgba(94,234,212,0.35);
+    box-shadow: 0 4px 24px rgba(13,148,136,0.25);
 }
 .banner-admin {
-    background: linear-gradient(135deg, #7F1D1D 0%, #B91C1C 60%, #EF4444 100%);
-    border: 1px solid rgba(239,68,68,0.35);
-    box-shadow: 0 4px 24px rgba(239,68,68,0.2);
+    background: linear-gradient(135deg, #022C22 0%, #064E3B 55%, #065F46 100%);
+    border: 1px solid rgba(16,185,129,0.3);
+    box-shadow: 0 4px 24px rgba(6,78,59,0.4);
 }
 .banner-teacher {
     background: linear-gradient(135deg, #064E3B 0%, #059669 60%, #10B981 100%);
