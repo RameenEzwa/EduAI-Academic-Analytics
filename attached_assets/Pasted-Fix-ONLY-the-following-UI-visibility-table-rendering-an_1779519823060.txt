@@ -1,0 +1,134 @@
+Fix ONLY the following UI visibility, table rendering, and text color issues in the existing EduAI project.
+
+IMPORTANT:
+Do NOT redesign the whole project again.
+Do NOT modify backend, APIs, AI logic, routing, authentication, database connections, charts logic, prediction systems, retraining systems, or dashboard functionality.
+
+Keep ALL existing functionality and current UI exactly the same.
+
+Apply ONLY these targeted fixes:
+
+1. LOGIN PAGE
+
+* Fix username and password input field text visibility.
+* Ensure typed text is clearly visible.
+* Change input text color from black to white/light color.
+* Fix placeholder visibility.
+* Maintain existing dark theme and styling.
+
+2. ADMIN PAGE → DATASET MANAGEMENT
+   Fix these components:
+
+* “Filter by any value” input field
+* “Rows to display” dropdown/table controls
+* Dataset table layout
+* Data Quality Report section
+
+Issues:
+
+* Text appears black on dark background.
+* Typed values are not visible.
+* Table layout alignment is broken.
+
+Required:
+
+* Make all text readable using light colors.
+* Improve table spacing and alignment.
+* Preserve current dark futuristic theme.
+* Ensure tables are fully responsive.
+
+3. ADMIN PAGE → DATA ANALYSIS
+
+* Fix Descriptive Statistics table.
+* Table data currently appears blank/invisible.
+* Ensure all rows, headings, and values are visible.
+* Use proper contrast for dark theme.
+
+4. STUDENT PAGE → AI PREDICTION
+   Section:
+
+* “Your Score in Class Context”
+
+Issue:
+
+* Value text such as “Avg 67.2” appears yellow and unclear.
+
+Required:
+
+* Replace yellow text with a professional readable color.
+* Keep styling modern and consistent with dashboard.
+
+5. STUDENT PAGE → RECOMMENDATIONS
+   Section:
+
+* Suggested Weekly Schedule table
+
+Issue:
+
+* Table appears blank.
+
+Required:
+
+* Fix table rendering and text visibility.
+* Ensure rows, headings, and cells display correctly.
+
+6. TEACHER PAGE → AT-RISK STUDENTS
+   Section:
+
+* “Bottom 20 Students in School”
+
+Issue:
+
+* Table appears blank/invisible.
+
+Required:
+
+* Fix text colors and table rendering.
+* Ensure all data is visible in dark mode.
+
+7. TEACHER PORTAL
+   Section:
+
+* “Top 20 Students by Score”
+
+Issue:
+
+* Text/table appears black on dark background.
+
+Required:
+
+* Fix contrast and readability.
+* Preserve existing layout and functionality.
+
+8. SDG4 & VISION 2030/2035 PAGE
+   Section:
+
+* “Vision 2030/2035 KPI Progress Tracker”
+
+Issue:
+
+* Text/data appears black and unreadable.
+
+Required:
+
+* Fix all typography contrast issues.
+* Ensure KPI cards and progress content are fully visible.
+
+GLOBAL FIX REQUIREMENTS:
+
+* Ensure all tables support dark theme correctly.
+* Use readable colors for:
+
+  * table text
+  * inputs
+  * dropdowns
+  * placeholders
+  * labels
+  * pagination controls
+  * statistics values
+* Preserve current animations, charts, AI features, and layout.
+* Do NOT introduce new redesigns.
+* Do NOT modify business logic.
+* Only fix visibility, contrast, and table rendering issues.
+
+The result should maintain the current futuristic AI SaaS appearance while making all data, inputs, and tables fully readable and functional.

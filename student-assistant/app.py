@@ -581,6 +581,137 @@ code {
 .sdg-icon { font-size: 2rem; margin-bottom: 0.5rem; }
 .sdg-title { font-size: 1rem; font-weight: 700; color: var(--text) !important; margin-bottom: 0.4rem; }
 .sdg-body { font-size: 0.85rem; color: var(--text-muted) !important; line-height: 1.55; }
+
+/* ══════════════════════════════════════════════════════════
+   VISIBILITY FIXES — inputs, tables, dropdowns, labels
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Force light text in ALL input variants ───────────────── */
+input, textarea, select,
+.stTextInput input,
+.stTextInput > div > div > input,
+[data-testid="stTextInput"] input,
+[data-testid="textInput"] input,
+.stTextArea textarea,
+[data-testid="stTextArea"] textarea {
+    color: #F1F5F9 !important;
+    caret-color: #3B82F6 !important;
+    -webkit-text-fill-color: #F1F5F9 !important;
+}
+input::placeholder,
+textarea::placeholder,
+[data-testid="stTextInput"] input::placeholder {
+    color: #4B5563 !important;
+    -webkit-text-fill-color: #4B5563 !important;
+    opacity: 1 !important;
+}
+/* Chrome autofill fix */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #F1F5F9 !important;
+    -webkit-box-shadow: 0 0 0px 1000px #161B27 inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* ── Selectbox / number input text ────────────────────────── */
+.stSelectbox select,
+.stSelectbox div[data-baseweb="select"] span,
+.stSelectbox div[data-baseweb="select"] div,
+[data-testid="stSelectbox"] div,
+[data-testid="stSelectbox"] span,
+[data-testid="stNumberInput"] input,
+.stNumberInput input {
+    color: #F1F5F9 !important;
+    -webkit-text-fill-color: #F1F5F9 !important;
+}
+/* Dropdown list options */
+li[role="option"], [role="listbox"] li, [role="option"] {
+    color: #F1F5F9 !important;
+    background: #1C2333 !important;
+}
+li[role="option"]:hover, [role="option"]:hover {
+    background: rgba(59,130,246,0.15) !important;
+}
+
+/* ── Labels and captions ──────────────────────────────────── */
+label, .stSlider label,
+[data-testid="stWidgetLabel"] p,
+[data-testid="stWidgetLabel"] span {
+    color: #CBD5E1 !important;
+}
+small, [data-testid="stCaptionContainer"] {
+    color: #64748B !important;
+}
+
+/* ── st.table() HTML tables ───────────────────────────────── */
+.stTable { width: 100% !important; }
+.stTable table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    background: transparent !important;
+    font-size: 0.88rem !important;
+}
+.stTable thead tr {
+    background: rgba(59,130,246,0.12) !important;
+    border-bottom: 1px solid rgba(59,130,246,0.25) !important;
+}
+.stTable thead th {
+    color: #93C5FD !important;
+    font-weight: 700 !important;
+    font-size: 0.78rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.6px !important;
+    padding: 10px 14px !important;
+    background: rgba(22,27,39,0.8) !important;
+    border-bottom: 1px solid rgba(59,130,246,0.2) !important;
+}
+.stTable tbody tr {
+    border-bottom: 1px solid rgba(148,163,184,0.08) !important;
+    transition: background 0.15s ease !important;
+}
+.stTable tbody tr:hover {
+    background: rgba(59,130,246,0.06) !important;
+}
+.stTable tbody td {
+    color: #CBD5E1 !important;
+    padding: 9px 14px !important;
+    background: transparent !important;
+}
+.stTable tbody tr:nth-child(even) td {
+    background: rgba(255,255,255,0.02) !important;
+}
+
+/* ── Dark DataFrames (Streamlit's data grid wrapper) ──────── */
+[data-testid="stDataFrame"] > div {
+    background: var(--bg2) !important;
+    border-radius: 12px !important;
+    border: 1px solid var(--card-border) !important;
+    color: #F1F5F9 !important;
+}
+/* The internal grid canvas text — best effort */
+[data-testid="stDataFrame"] canvas { color: #F1F5F9 !important; }
+/* AG-grid / Glide cells */
+.dvn-scroller { background: #161B27 !important; color: #F1F5F9 !important; }
+.dvn-scroller * { color: #F1F5F9 !important; }
+
+/* ── Number / slider value display ────────────────────────── */
+[data-testid="stSlider"] [data-testid="stText"],
+[data-testid="stSlider"] p {
+    color: #93C5FD !important;
+}
+
+/* ── Annotation / vline text on Plotly ────────────────────── */
+/* Applied via fig.update_layout - see chart code */
+
+/* ── Alert box text ───────────────────────────────────────── */
+[data-testid="stAlert"] p,
+[data-testid="stAlert"] div {
+    color: var(--text2) !important;
+}
+
+/* ── Spinner text ─────────────────────────────────────────── */
+[data-testid="stSpinner"] p { color: var(--text2) !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -1147,9 +1278,9 @@ def render_student(df, lr, rf, feat_cols, df_ml, metrics):
             fig.add_vline(x=score, line_color="#10B981", line_width=3,
                           annotation_text=f"You: {score:.1f}", annotation_position="top right",
                           annotation_font_color="#10B981")
-            fig.add_vline(x=df["Exam_Score"].mean(), line_color="#F59E0B", line_dash="dash",
+            fig.add_vline(x=df["Exam_Score"].mean(), line_color="#94A3B8", line_dash="dash",
                           annotation_text=f"Class avg: {df['Exam_Score'].mean():.1f}",
-                          annotation_font_color="#F59E0B")
+                          annotation_font_color="#CBD5E1")
             fig.update_layout(
                 height=340,
                 margin=dict(t=55, b=15),
@@ -1270,7 +1401,7 @@ def render_student(df, lr, rf, feat_cols, df_ml, metrics):
                 "Focus Area":   ["Lecture Review","Practice Problems","Active Recall",
                                  "Past Papers","Weak Topics","Full Study Session","Rest & Review"],
             })
-            st.dataframe(schedule_df, use_container_width=True, hide_index=True)
+            st.table(schedule_df)
 
     # ── Tab 3: AI Chatbot ─────────────────────────────────────
     with tab3:
@@ -1403,20 +1534,19 @@ def render_admin(df, lr, rf, feat_cols, df_ml, metrics):
             st.success("✅ No missing values after preprocessing.")
         else:
             st.warning(f"⚠️ {miss.sum()} missing values remain.")
-            st.dataframe(miss[miss > 0].rename("Missing Count"), use_container_width=True)
+            st.table(miss[miss > 0].rename("Missing Count"))
 
         dtype_df = pd.DataFrame({
             "Column":        df.columns,
             "Type":          df.dtypes.astype(str).values,
             "Unique Values": [df[c].nunique() for c in df.columns],
         })
-        st.dataframe(dtype_df, use_container_width=True, hide_index=True)
+        st.table(dtype_df.reset_index(drop=True))
 
     # ── Tab 2: Data Analysis ──────────────────────────────────
     with tab2:
         st.markdown("#### Descriptive Statistics")
-        st.dataframe(df.select_dtypes(include=[np.number]).describe().round(2),
-                     use_container_width=True)
+        st.table(df.select_dtypes(include=[np.number]).describe().round(2))
 
         st.markdown("#### Correlation Heatmap")
         corr = df.select_dtypes(include=[np.number]).corr()
@@ -1692,8 +1822,7 @@ def render_teacher(df):
         show = [c for c in ["Hours_Studied", "Attendance", "Sleep_Hours",
                              "Motivation_Level", "Exam_Score"] if c in df.columns]
         st.markdown("**Bottom 20 Students by Score**")
-        st.dataframe(weak_df[show].sort_values("Exam_Score").head(20),
-                     use_container_width=True)
+        st.table(weak_df[show].sort_values("Exam_Score").head(20).reset_index(drop=True))
 
         # Teacher note: no admin tools here
         st.info(
@@ -1722,8 +1851,7 @@ def render_teacher(df):
         show2 = [c for c in ["Hours_Studied", "Attendance", "Motivation_Level",
                               "School_Type", "Exam_Score"] if c in df.columns]
         st.markdown("**Top 20 Students by Score**")
-        st.dataframe(strong_df[show2].sort_values("Exam_Score", ascending=False).head(20),
-                     use_container_width=True)
+        st.table(strong_df[show2].sort_values("Exam_Score", ascending=False).head(20).reset_index(drop=True))
 
     # ── Tab 4: SDG 4 & Vision 2030/2035 ──────────────────────
     with tab4:
@@ -1838,7 +1966,7 @@ def render_teacher(df):
                 "✅ Met" if internet_pct >= 95 else "⚠️ Not Met",
             ],
         }
-        st.dataframe(pd.DataFrame(kpi_data), use_container_width=True, hide_index=True)
+        st.table(pd.DataFrame(kpi_data))
 
         if "Internet_Access" in df.columns:
             inet = df.groupby("Internet_Access")["Exam_Score"].mean().reset_index()
