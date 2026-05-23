@@ -67,8 +67,16 @@ st.markdown("""
 
 /* ── Animations ───────────────────────────────────────────── */
 @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(28px); }
     to   { opacity: 1; transform: translateY(0);    }
+}
+@keyframes slideInCard {
+    from { opacity: 0; transform: translateY(18px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+@keyframes glowPulse {
+    0%,100% { box-shadow: 0 0 0 3px rgba(16,185,129,0.15); }
+    50%      { box-shadow: 0 0 0 4px rgba(16,185,129,0.35), 0 0 18px rgba(16,185,129,0.2); }
 }
 @keyframes fadeIn {
     from { opacity: 0; }
@@ -143,35 +151,43 @@ html, body, .stApp {
 
 /* ── Primary buttons ──────────────────────────────────────── */
 .stButton > button[kind="primary"] {
-    background: linear-gradient(135deg, var(--blue-dim) 0%, var(--blue) 100%) !important;
+    background: linear-gradient(135deg, #059669 0%, #10B981 100%) !important;
     color: #fff !important;
     border: none !important;
     border-radius: 10px !important;
     font-weight: 700 !important;
     letter-spacing: 0.4px !important;
     padding: 0.6rem 1.4rem !important;
-    transition: all 0.25s ease !important;
-    box-shadow: 0 4px 15px rgba(59,130,246,0.3) !important;
+    transition: all 0.28s cubic-bezier(0.34,1.56,0.64,1) !important;
+    box-shadow: 0 4px 15px rgba(16,185,129,0.3) !important;
+    position: relative !important;
+    overflow: hidden !important;
 }
 .stButton > button[kind="primary"]:hover {
-    transform: translateY(-1px) !important;
-    box-shadow: 0 6px 20px rgba(59,130,246,0.45) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 0 15px rgba(16,185,129,0.6), 0 8px 24px rgba(16,185,129,0.35) !important;
+    background: linear-gradient(135deg, #10B981 0%, #34D399 100%) !important;
+}
+.stButton > button[kind="primary"]:active {
+    transform: translateY(0px) !important;
+    box-shadow: 0 0 8px rgba(16,185,129,0.4) !important;
 }
 
 /* ── Secondary buttons ────────────────────────────────────── */
 .stButton > button[kind="secondary"],
 .stButton > button:not([kind="primary"]) {
-    background: rgba(59,130,246,0.07) !important;
-    border: 1px solid rgba(59,130,246,0.25) !important;
-    color: var(--blue) !important;
+    background: rgba(16,185,129,0.07) !important;
+    border: 1px solid rgba(52,211,153,0.25) !important;
+    color: #34D399 !important;
     border-radius: 10px !important;
     font-weight: 600 !important;
-    transition: all 0.2s ease !important;
+    transition: all 0.22s ease !important;
 }
 .stButton > button[kind="secondary"]:hover,
 .stButton > button:not([kind="primary"]):hover {
-    background: rgba(59,130,246,0.14) !important;
-    border-color: var(--blue) !important;
+    background: rgba(16,185,129,0.14) !important;
+    border-color: #10B981 !important;
+    box-shadow: 0 0 10px rgba(16,185,129,0.25) !important;
 }
 
 /* ── Download button ──────────────────────────────────────── */
@@ -191,22 +207,23 @@ html, body, .stApp {
 .stTextInput > div > div > input,
 .stTextArea textarea {
     background: rgba(10,32,20,0.9) !important;
-    border: 1px solid rgba(52,211,153,0.2) !important;
+    border: 1px solid rgba(52,211,153,0.22) !important;
     border-radius: 10px !important;
     color: #ECFDF5 !important;
     padding: 0.6rem 0.9rem !important;
-    transition: all 0.2s ease !important;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease !important;
     -webkit-text-fill-color: #ECFDF5 !important;
 }
 .stTextInput > div > div > input:focus,
 .stTextArea textarea:focus {
     border-color: #10B981 !important;
-    box-shadow: 0 0 0 3px rgba(16,185,129,0.2) !important;
-    background: rgba(18,45,32,0.95) !important;
+    background: rgba(18,45,32,0.97) !important;
+    animation: glowPulse 1.8s ease-in-out infinite !important;
+    outline: none !important;
 }
 input[type="text"]::placeholder, textarea::placeholder {
     color: #6EE7B7 !important;
-    opacity: 0.5 !important;
+    opacity: 0.45 !important;
 }
 
 /* ── Selectbox ────────────────────────────────────────────── */
@@ -435,6 +452,31 @@ code {
     border-radius: 20px;
     letter-spacing: 0.5px;
     margin: 0.5rem 4px 0;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+.login-pill:hover {
+    background: rgba(16,185,129,0.28);
+    transform: translateY(-1px);
+}
+
+/* ── Login form card ──────────────────────────────────────── */
+.login-form-section {
+    animation: slideInCard 0.6s cubic-bezier(0.16,1,0.3,1) 0.25s both;
+}
+.login-form-section [data-testid="stVerticalBlockBorderWrapper"] {
+    background: rgba(10,32,20,0.92) !important;
+    border: 1px solid rgba(52,211,153,0.22) !important;
+    border-radius: 16px !important;
+    padding: 0.5rem !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(16,185,129,0.08) !important;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease !important;
+}
+.login-form-section [data-testid="stVerticalBlockBorderWrapper"]:hover {
+    border-color: rgba(52,211,153,0.38) !important;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.45), 0 0 20px rgba(16,185,129,0.1) !important;
+}
+.login-creds-wrap {
+    animation: slideInCard 0.6s cubic-bezier(0.16,1,0.3,1) 0.45s both;
 }
 
 /* ── Credential rows ──────────────────────────────────────── */
@@ -612,8 +654,8 @@ textarea::placeholder,
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
-    -webkit-text-fill-color: #F1F5F9 !important;
-    -webkit-box-shadow: 0 0 0px 1000px #161B27 inset !important;
+    -webkit-text-fill-color: #ECFDF5 !important;
+    -webkit-box-shadow: 0 0 0px 1000px #0C2318 inset !important;
     transition: background-color 5000s ease-in-out 0s;
 }
 
@@ -1102,7 +1144,8 @@ def render_login():
         </div>
         """, unsafe_allow_html=True)
 
-        # Inputs + button inside a clean container
+        # Inputs + button inside an animated form card
+        st.markdown('<div class="login-form-section">', unsafe_allow_html=True)
         with st.container(border=True):
             st.markdown("##### Sign in to your portal")
             st.markdown("&nbsp;")
@@ -1128,8 +1171,10 @@ def render_login():
 
             if st.session_state.get("login_error"):
                 st.error(st.session_state.login_error)
+        st.markdown('</div>', unsafe_allow_html=True)
 
         # ── Demo credentials ───────────────────────────────────
+        st.markdown('<div class="login-creds-wrap">', unsafe_allow_html=True)
         with st.expander("💡 Demo Credentials (For Testing)"):
             st.markdown("""
 <div class="cred-row cred-admin">
@@ -1148,6 +1193,7 @@ def render_login():
   <span class="cred-badge badge-student">STUDENT</span>
 </div>
             """, unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
         st.caption(
