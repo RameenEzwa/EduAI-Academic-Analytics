@@ -42,27 +42,27 @@ st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-/* ── Palette ──────────────────────────────────────────────── */
+/* ── Palette — Emerald & Deep Forest ──────────────────────── */
 :root {
-    --bg:          #0D1117;
-    --bg2:         #161B27;
-    --bg3:         #1C2333;
-    --card:        rgba(22,27,39,0.85);
-    --card-border: rgba(59,130,246,0.15);
-    --blue:        #3B82F6;
-    --blue-dim:    #2563EB;
-    --blue-glow:   rgba(59,130,246,0.25);
-    --teal:        #10B981;
-    --teal-dim:    #059669;
-    --teal-glow:   rgba(16,185,129,0.25);
-    --purple:      #8B5CF6;
-    --amber:       #F59E0B;
-    --red:         #EF4444;
-    --text:        #F1F5F9;
-    --text2:       #CBD5E1;
-    --text-muted:  #64748B;
-    --border:      rgba(148,163,184,0.1);
-    --navy:        #1E3A8A;
+    --bg:          #071A10;
+    --bg2:         #0C2318;
+    --bg3:         #122D20;
+    --card:        rgba(10,32,20,0.88);
+    --card-border: rgba(16,185,129,0.22);
+    --blue:        #10B981;
+    --blue-dim:    #059669;
+    --blue-glow:   rgba(16,185,129,0.28);
+    --teal:        #34D399;
+    --teal-dim:    #10B981;
+    --teal-glow:   rgba(52,211,153,0.25);
+    --purple:      #6EE7B7;
+    --amber:       #FCD34D;
+    --red:         #F87171;
+    --text:        #ECFDF5;
+    --text2:       #A7F3D0;
+    --text-muted:  #6EE7B7;
+    --border:      rgba(52,211,153,0.1);
+    --navy:        #064E3B;
 }
 
 /* ── Animations ───────────────────────────────────────────── */
@@ -107,37 +107,37 @@ html, body, .stApp {
 
 /* ── Sidebar ──────────────────────────────────────────────── */
 [data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #0D1117 0%, #161B27 60%, #0D1117 100%) !important;
-    border-right: 1px solid var(--card-border) !important;
+    background: linear-gradient(180deg, #041510 0%, #071A10 40%, #0C2318 80%, #071A10 100%) !important;
+    border-right: 1px solid rgba(16,185,129,0.2) !important;
 }
 [data-testid="stSidebar"] > div:first-child {
     padding-top: 1.5rem;
 }
 [data-testid="stSidebar"] * {
-    color: var(--text2) !important;
+    color: #A7F3D0 !important;
 }
 [data-testid="stSidebar"] h1,[data-testid="stSidebar"] h2,
 [data-testid="stSidebar"] h3,[data-testid="stSidebar"] strong {
-    color: var(--text) !important;
+    color: #ECFDF5 !important;
 }
 [data-testid="stSidebar"] hr {
-    border-color: var(--border) !important;
+    border-color: rgba(52,211,153,0.15) !important;
 }
 [data-testid="stSidebar"] .stButton > button {
-    background: rgba(59,130,246,0.1) !important;
-    color: var(--blue) !important;
-    border: 1px solid rgba(59,130,246,0.3) !important;
+    background: rgba(16,185,129,0.12) !important;
+    color: #34D399 !important;
+    border: 1px solid rgba(52,211,153,0.35) !important;
     border-radius: 10px !important;
     font-weight: 600 !important;
     transition: all 0.2s ease !important;
 }
 [data-testid="stSidebar"] .stButton > button:hover {
-    background: rgba(59,130,246,0.2) !important;
-    box-shadow: 0 0 12px var(--blue-glow) !important;
+    background: rgba(16,185,129,0.22) !important;
+    box-shadow: 0 0 14px rgba(16,185,129,0.3) !important;
 }
 [data-testid="stSidebar"] [data-testid="stExpander"] {
-    background: rgba(255,255,255,0.03) !important;
-    border: 1px solid var(--border) !important;
+    background: rgba(16,185,129,0.04) !important;
+    border: 1px solid rgba(52,211,153,0.12) !important;
     border-radius: 10px !important;
 }
 
@@ -190,32 +190,34 @@ html, body, .stApp {
 /* ── Input fields ─────────────────────────────────────────── */
 .stTextInput > div > div > input,
 .stTextArea textarea {
-    background: var(--bg2) !important;
-    border: 1px solid var(--border) !important;
+    background: rgba(10,32,20,0.9) !important;
+    border: 1px solid rgba(52,211,153,0.2) !important;
     border-radius: 10px !important;
-    color: var(--text) !important;
+    color: #ECFDF5 !important;
     padding: 0.6rem 0.9rem !important;
     transition: all 0.2s ease !important;
+    -webkit-text-fill-color: #ECFDF5 !important;
 }
 .stTextInput > div > div > input:focus,
 .stTextArea textarea:focus {
-    border-color: var(--blue) !important;
-    box-shadow: 0 0 0 3px var(--blue-glow) !important;
-    background: var(--bg3) !important;
+    border-color: #10B981 !important;
+    box-shadow: 0 0 0 3px rgba(16,185,129,0.2) !important;
+    background: rgba(18,45,32,0.95) !important;
 }
 input[type="text"]::placeholder, textarea::placeholder {
-    color: var(--text-muted) !important;
+    color: #6EE7B7 !important;
+    opacity: 0.5 !important;
 }
 
 /* ── Selectbox ────────────────────────────────────────────── */
 .stSelectbox > div > div {
-    background: var(--bg2) !important;
-    border: 1px solid var(--border) !important;
+    background: rgba(10,32,20,0.9) !important;
+    border: 1px solid rgba(52,211,153,0.2) !important;
     border-radius: 10px !important;
-    color: var(--text) !important;
+    color: #ECFDF5 !important;
 }
 .stSelectbox > div > div:focus-within {
-    border-color: var(--blue) !important;
+    border-color: #10B981 !important;
 }
 
 /* ── Sliders ──────────────────────────────────────────────── */
@@ -372,20 +374,21 @@ code {
 .login-hero {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, #0D1117 0%, #0F1629 50%, #0A1628 100%);
-    border: 1px solid var(--card-border);
+    background: linear-gradient(135deg, #041510 0%, #071A10 50%, #0C2318 100%);
+    border: 1px solid rgba(16,185,129,0.25);
     border-radius: 20px;
     padding: 2.5rem 2rem 2rem;
     margin-bottom: 1.5rem;
     text-align: center;
     animation: fadeInUp 0.6s ease;
+    box-shadow: 0 8px 40px rgba(16,185,129,0.12);
 }
 .login-hero::before {
     content: '';
     position: absolute;
     top: -60px; left: -60px;
-    width: 200px; height: 200px;
-    background: radial-gradient(circle, rgba(59,130,246,0.18) 0%, transparent 70%);
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(16,185,129,0.22) 0%, transparent 70%);
     border-radius: 50%;
     animation: orb-move 8s ease-in-out infinite;
 }
@@ -393,8 +396,8 @@ code {
     content: '';
     position: absolute;
     bottom: -40px; right: -40px;
-    width: 160px; height: 160px;
-    background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%);
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(52,211,153,0.18) 0%, transparent 70%);
     border-radius: 50%;
     animation: orb-move 10s ease-in-out infinite reverse;
 }
@@ -407,8 +410,8 @@ code {
 .login-title {
     font-size: 1.85rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #60A5FA, #34D399, #818CF8);
-    background-size: 200%;
+    background: linear-gradient(135deg, #6EE7B7, #34D399, #10B981, #A7F3D0, #6EE7B7);
+    background-size: 300%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -423,9 +426,9 @@ code {
 }
 .login-pill {
     display: inline-block;
-    background: rgba(59,130,246,0.12);
-    border: 1px solid rgba(59,130,246,0.25);
-    color: var(--blue) !important;
+    background: rgba(16,185,129,0.15);
+    border: 1px solid rgba(52,211,153,0.35);
+    color: #6EE7B7 !important;
     font-size: 0.75rem;
     font-weight: 700;
     padding: 3px 10px;
@@ -446,9 +449,9 @@ code {
     transition: transform 0.15s ease;
 }
 .cred-row:hover { transform: translateX(3px); }
-.cred-admin   { background: rgba(59,130,246,0.08);  border-left: 3px solid var(--blue); }
-.cred-teacher { background: rgba(16,185,129,0.08);  border-left: 3px solid var(--teal); }
-.cred-student { background: rgba(139,92,246,0.08);  border-left: 3px solid var(--purple); }
+.cred-admin   { background: rgba(248,113,113,0.08); border-left: 3px solid #F87171; }
+.cred-teacher { background: rgba(52,211,153,0.10);  border-left: 3px solid #34D399; }
+.cred-student { background: rgba(16,185,129,0.08);  border-left: 3px solid #10B981; }
 .cred-badge {
     font-size: 0.7rem;
     font-weight: 700;
@@ -456,9 +459,9 @@ code {
     border-radius: 20px;
     letter-spacing: 0.5px;
 }
-.badge-admin   { background: rgba(59,130,246,0.2);  color: #93C5FD; border: 1px solid rgba(59,130,246,0.3); }
-.badge-teacher { background: rgba(16,185,129,0.2);  color: #6EE7B7; border: 1px solid rgba(16,185,129,0.3); }
-.badge-student { background: rgba(139,92,246,0.2);  color: #C4B5FD; border: 1px solid rgba(139,92,246,0.3); }
+.badge-admin   { background: rgba(248,113,113,0.2); color: #FCA5A5; border: 1px solid rgba(248,113,113,0.35); }
+.badge-teacher { background: rgba(52,211,153,0.2);  color: #6EE7B7; border: 1px solid rgba(52,211,153,0.35); }
+.badge-student { background: rgba(16,185,129,0.2);  color: #A7F3D0; border: 1px solid rgba(16,185,129,0.35); }
 
 /* ── Portal banners ───────────────────────────────────────── */
 .portal-banner {
@@ -653,33 +656,33 @@ small, [data-testid="stCaptionContainer"] {
     font-size: 0.88rem !important;
 }
 .stTable thead tr {
-    background: rgba(59,130,246,0.12) !important;
-    border-bottom: 1px solid rgba(59,130,246,0.25) !important;
+    background: rgba(16,185,129,0.12) !important;
+    border-bottom: 1px solid rgba(52,211,153,0.25) !important;
 }
 .stTable thead th {
-    color: #93C5FD !important;
+    color: #6EE7B7 !important;
     font-weight: 700 !important;
     font-size: 0.78rem !important;
     text-transform: uppercase !important;
     letter-spacing: 0.6px !important;
     padding: 10px 14px !important;
-    background: rgba(22,27,39,0.8) !important;
-    border-bottom: 1px solid rgba(59,130,246,0.2) !important;
+    background: rgba(10,32,20,0.85) !important;
+    border-bottom: 1px solid rgba(52,211,153,0.2) !important;
 }
 .stTable tbody tr {
-    border-bottom: 1px solid rgba(148,163,184,0.08) !important;
+    border-bottom: 1px solid rgba(52,211,153,0.06) !important;
     transition: background 0.15s ease !important;
 }
 .stTable tbody tr:hover {
-    background: rgba(59,130,246,0.06) !important;
+    background: rgba(16,185,129,0.07) !important;
 }
 .stTable tbody td {
-    color: #CBD5E1 !important;
+    color: #A7F3D0 !important;
     padding: 9px 14px !important;
     background: transparent !important;
 }
 .stTable tbody tr:nth-child(even) td {
-    background: rgba(255,255,255,0.02) !important;
+    background: rgba(16,185,129,0.03) !important;
 }
 
 /* ── Dark DataFrames (Streamlit's data grid wrapper) ──────── */
@@ -1506,7 +1509,7 @@ def render_admin(df, lr, rf, feat_cols, df_ml, metrics):
                     lambda r: r.str.contains(search, case=False)).any(axis=1)
                 display = display[mask]
             n = st.slider("Rows to display", 10, 500, 50)
-            st.dataframe(display.head(n), use_container_width=True, height=420)
+            st.table(display.head(n).reset_index(drop=True))
             st.caption(f"Showing {min(n, len(display))} of {len(display)} records")
 
             col_dl, col_rel = st.columns(2)
